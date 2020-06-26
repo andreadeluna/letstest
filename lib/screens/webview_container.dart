@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:focus_detector/focus_detector.dart';
 
 class WebViewContainer extends StatefulWidget {
@@ -49,6 +50,14 @@ class _WebViewContainerState extends State<WebViewContainer> {
               'Focus acquisito a $onFocus, equivalente a onResume o viewDidAppear');
           print('Tempo perdita focus:');
           print(onFocus.difference(lostFocus));
+          Fluttertoast.showToast(
+              msg: "Accesso al Portale",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.blueGrey,
+              textColor: Colors.white,
+              fontSize: 16.0);
         },
         onFocusLost: () {
           lostFocus = DateTime.now();

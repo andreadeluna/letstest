@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:focus_detector/focus_detector.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'screens/home.dart';
 
 class App extends StatelessWidget {
@@ -35,6 +36,14 @@ class App extends StatelessWidget {
               'Focus acquisito a $onFocus, equivalente a onResume o viewDidAppear');
           print('Tempo perdita focus:');
           print(onFocus.difference(lostFocus));
+          Fluttertoast.showToast(
+              msg: "Accesso alla Homepage",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.blueGrey,
+              textColor: Colors.white,
+              fontSize: 16.0);
         },
         onFocusLost: () {
           lostFocus = DateTime.now();
