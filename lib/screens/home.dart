@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'webview_container.dart';
+import 'package:wakelock/wakelock.dart';
 
 class HomePage extends StatelessWidget {
   final _links = [
@@ -29,7 +30,10 @@ class HomePage extends StatelessWidget {
         color: Colors.grey,
         padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0),
         child: Text('TEST'),
-        onPressed: () => _handleURLButtonPress(context, url),
+        onPressed: () {
+          _handleURLButtonPress(context, url);
+          Wakelock.enable();
+        },
       ),
     );
   }

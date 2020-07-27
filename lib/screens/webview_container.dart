@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:focus_detector/focus_detector.dart';
+import 'package:wakelock/wakelock.dart';
 
 class WebViewContainer extends StatefulWidget {
   final url;
@@ -32,7 +33,10 @@ class _WebViewContainerState extends State<WebViewContainer> {
                 ),
                 FlatButton(
                   child: Text('Si'),
-                  onPressed: () => Navigator.pop(context, true),
+                  onPressed: () {
+                    Navigator.pop(context, true);
+                    Wakelock.disable();
+                  },
                 )
               ],
             ));
