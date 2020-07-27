@@ -20,53 +20,79 @@ class _WebViewContainerState extends State<WebViewContainer> {
 
   _WebViewContainerState(this._url);
 
+  Future<bool> _onBackPressed() {
+    return showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text('Vuoi realmente uscire?'),
+              actions: [
+                FlatButton(
+                  child: Text('No'),
+                  onPressed: () => Navigator.pop(context, false),
+                ),
+                FlatButton(
+                  child: Text('Si'),
+                  onPressed: () => Navigator.pop(context, true),
+                )
+              ],
+            ));
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: FocusDetector(
-        key: _resumeDetectorKey,
-        child: Scaffold(
-          backgroundColor: Colors.white,
-          appBar: AppBar(
-            title: Text('Bozza Progetto'),
-            backgroundColor: Colors.teal,
-          ),
-          body: Column(
-            children: [
-              Expanded(
-                child: WebView(
-                  key: _key,
-                  javascriptMode: JavascriptMode.unrestricted,
-                  initialUrl: _url,
+    return WillPopScope(
+      onWillPop: _onBackPressed,
+      child: MaterialApp(
+        home: FocusDetector(
+          key: _resumeDetectorKey,
+          child: Scaffold(
+            backgroundColor: Colors.white,
+            appBar: AppBar(
+              title: Text('Bozza Progetto'),
+              backgroundColor: Colors.teal,
+            ),
+            body: Column(
+              children: [
+                Expanded(
+                  child: WebView(
+                    key: _key,
+                    javascriptMode: JavascriptMode.unrestricted,
+                    initialUrl: _url,
+                  ),
                 ),
-              )
-            ],
+                /*Expanded(
+                  child: Form(
+                    onWillPop: _onBackPressed,
+                  ),
+                )*/
+              ],
+            ),
           ),
+          onFocusGained: () {
+            onFocus = DateTime.now();
+            print('PORTALE:');
+            print(
+                'Focus acquisito a $onFocus, equivalente a onResume o viewDidAppear');
+            print('Tempo perdita focus:');
+            print(onFocus.difference(lostFocus));
+            Fluttertoast.showToast(
+                msg: "Accesso al Portale",
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.blueGrey,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          },
+          onFocusLost: () {
+            lostFocus = DateTime.now();
+            print('PORTALE:');
+            print(
+                'Focus perso a $lostFocus, equivalente a onPause o viewDidDisappear');
+            print('Tempo mantenimento focus:');
+            print(lostFocus.difference(onFocus));
+          },
         ),
-        onFocusGained: () {
-          onFocus = DateTime.now();
-          print('PORTALE:');
-          print(
-              'Focus acquisito a $onFocus, equivalente a onResume o viewDidAppear');
-          print('Tempo perdita focus:');
-          print(onFocus.difference(lostFocus));
-          Fluttertoast.showToast(
-              msg: "Accesso al Portale",
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              backgroundColor: Colors.blueGrey,
-              textColor: Colors.white,
-              fontSize: 16.0);
-        },
-        onFocusLost: () {
-          lostFocus = DateTime.now();
-          print('PORTALE:');
-          print(
-              'Focus perso a $lostFocus, equivalente a onPause o viewDidDisappear');
-          print('Tempo mantenimento focus:');
-          print(lostFocus.difference(onFocus));
-        },
       ),
     );
   }
