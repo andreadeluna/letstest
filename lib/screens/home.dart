@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'webview_container.dart';
 import 'package:wakelock/wakelock.dart';
+import 'package:flutter/services.dart';
 
 class HomePage extends StatelessWidget {
   final _links = [
@@ -10,6 +11,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     return Center(
       child: Scaffold(
         body: SafeArea(
