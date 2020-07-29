@@ -53,7 +53,21 @@ class _WebViewContainerState extends State<WebViewContainer> {
             backgroundColor: Colors.white,
             appBar: AppBar(
               title: Text('Bozza Progetto'),
-              backgroundColor: Colors.teal,
+              backgroundColor: Colors.lightBlue,
+            ),
+            bottomNavigationBar: BottomNavigationBar(
+              items: [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.assignment),
+                  title: Text('Test'),
+                  backgroundColor: Colors.lightBlueAccent,
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.assignment_turned_in),
+                  title: Text('Fine'),
+                  backgroundColor: Colors.lightBlueAccent,
+                ),
+              ],
             ),
             body: Column(
               children: [

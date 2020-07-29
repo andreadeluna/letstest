@@ -12,7 +12,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Bozza Progetto',
       theme: ThemeData(
-        primarySwatch: Colors.teal,
+        primarySwatch: Colors.lightBlue,
         fontFamily: "Arial",
         textTheme: TextTheme(
           button: TextStyle(color: Colors.white, fontSize: 18.0),
@@ -25,7 +25,7 @@ class App extends StatelessWidget {
           backgroundColor: Colors.white,
           appBar: AppBar(
             title: Text('Bozza Progetto'),
-            backgroundColor: Colors.teal,
+            backgroundColor: Colors.lightBlue,
           ),
           body: HomePage(),
         ),
