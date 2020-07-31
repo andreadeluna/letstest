@@ -18,6 +18,7 @@ class _WebViewContainerState extends State<WebViewContainer> {
   DateTime onFocus = new DateTime.now(), lostFocus = new DateTime.now();
   var _url;
   final _key = UniqueKey();
+  int _currentIndex = 0;
 
   _WebViewContainerState(this._url);
 
@@ -56,6 +57,7 @@ class _WebViewContainerState extends State<WebViewContainer> {
               backgroundColor: Colors.lightBlue,
             ),
             bottomNavigationBar: BottomNavigationBar(
+              currentIndex: _currentIndex,
               items: [
                 BottomNavigationBarItem(
                   icon: Icon(Icons.assignment),
@@ -68,6 +70,11 @@ class _WebViewContainerState extends State<WebViewContainer> {
                   backgroundColor: Colors.lightBlueAccent,
                 ),
               ],
+              onTap: (index) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              },
             ),
             body: Column(
               children: [
