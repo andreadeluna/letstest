@@ -96,10 +96,7 @@ class _WebViewContainerState extends State<WebViewContainer> {
           onFocusGained: () {
             onFocus = DateTime.now();
             print('PORTALE:');
-            print(
-                'Focus acquisito a $onFocus, equivalente a onResume o viewDidAppear');
-            print('Tempo perdita focus:');
-            print(onFocus.difference(lostFocus));
+            print('Focus acquisito a $onFocus');
             Fluttertoast.showToast(
                 msg: "Accesso al Portale",
                 toastLength: Toast.LENGTH_LONG,
@@ -112,8 +109,7 @@ class _WebViewContainerState extends State<WebViewContainer> {
           onFocusLost: () {
             lostFocus = DateTime.now();
             print('PORTALE:');
-            print(
-                'Focus perso a $lostFocus, equivalente a onPause o viewDidDisappear');
+            print('Focus perso a $lostFocus');
             print('Tempo mantenimento focus:');
             print(lostFocus.difference(onFocus));
           },

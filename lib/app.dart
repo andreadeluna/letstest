@@ -32,10 +32,7 @@ class App extends StatelessWidget {
         onFocusGained: () {
           onFocus = DateTime.now();
           print('HOMEPAGE:');
-          print(
-              'Focus acquisito a $onFocus, equivalente a onResume o viewDidAppear');
-          print('Tempo perdita focus:');
-          print(onFocus.difference(lostFocus));
+          print('Focus acquisito a $onFocus');
           Fluttertoast.showToast(
               msg: "Accesso alla Homepage",
               toastLength: Toast.LENGTH_LONG,
@@ -48,8 +45,7 @@ class App extends StatelessWidget {
         onFocusLost: () {
           lostFocus = DateTime.now();
           print('HOMEPAGE:');
-          print(
-              'Focus perso a $lostFocus, equivalente a onPause o viewDidDisappear');
+          print('Focus perso a $lostFocus');
           print('Tempo mantenimento focus:');
           print(lostFocus.difference(onFocus));
         },
