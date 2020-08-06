@@ -3,12 +3,23 @@ import 'package:wakelock/wakelock.dart';
 
 import '../app.dart';
 
-class Risultato extends StatelessWidget {
-  Risultato(this.status);
-
+class Risultato extends StatefulWidget {
   String status;
 
+  Risultato(this.status);
+
   @override
+  _RisultatoState createState() => _RisultatoState(status);
+}
+
+class _RisultatoState extends State<Risultato> {
+  String status;
+
+  _RisultatoState(this.status);
+
+  @override
+  String focusStat = '';
+
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: _onBackPressed,
