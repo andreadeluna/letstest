@@ -67,25 +67,61 @@ class _WebViewContainerState extends State<WebViewContainer> {
               backgroundColor: Colors.lightBlue,
             ),
             bottomNavigationBar: BottomNavigationBar(
-              currentIndex: _currentIndex,
-              items: [
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.assignment),
-                  title: Text('Test'),
-                  backgroundColor: Colors.lightBlueAccent,
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.assignment_turned_in),
-                  title: Text('Fine'),
-                  backgroundColor: Colors.lightBlueAccent,
-                ),
-              ],
-              onTap: (index) {
-                setState(() {
+                currentIndex: _currentIndex,
+                items: [
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.assignment),
+                    title: Text('Test'),
+                    backgroundColor: Colors.lightBlueAccent,
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.assignment_turned_in),
+                    title: Text('Fine'),
+                    backgroundColor: Colors.lightBlueAccent,
+                  ),
+                ],
+                onTap: (index) {
+                  if (index == 1) {
+                    showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                              title: Text('Vuoi terminare la prova?'),
+                              actions: [
+                                FlatButton(
+                                  child: Text('No'),
+                                  onPressed: () {
+                                    Navigator.pop(context, false);
+                                  },
+                                ),
+                                FlatButton(
+                                  child: Text('Si'),
+                                  onPressed: () {
+//                    lostFocus = DateTime.now();
+//                    focusStat =
+//                        'PORTALE:\nFocus perso a $lostFocus\nTempo mantenimento focus: ${lostFocus.difference(onFocus)}\n\nPREMUTO PULSANTE BACK\n\n';
+//                    status += focusStat;
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                Risultato(status)));
+                                    Wakelock.disable();
+                                  },
+                                )
+                              ],
+                            ));
+                  }
+
+                  /*Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Risultato(status)));*/
+                }
+                /*setState(() {
                   _currentIndex = index;
-                });
-              },
-            ),
+                });*/
+
+                ),
             body: Column(
               children: [
                 Expanded(

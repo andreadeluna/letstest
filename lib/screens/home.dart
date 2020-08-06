@@ -19,72 +19,82 @@ class HomePage extends StatelessWidget {
   String focusStat = '';
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
-    return Center(
-      child: FocusDetector(
-        key: _resumeDetectorKey,
-        child: Scaffold(
-          body: SafeArea(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Expanded(
-                  //padding: EdgeInsets.all(20.0),
-                  child: FlatButton(
-                    //color: Colors.grey,
-                    //padding:
-                    //EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0),
-                    onPressed: () {
-                      _handleURLButtonPress(context, _linktolc);
-                      Wakelock.enable();
-                    },
-                    child: Image.asset('images/tolc.png'),
+    return MaterialApp(
+      home: Center(
+        child: FocusDetector(
+          key: _resumeDetectorKey,
+          child: Scaffold(
+            backgroundColor: Colors.white,
+            appBar: AppBar(
+              title: Text(
+                'Bozza Progetto',
+                style: TextStyle(color: Colors.white),
+              ),
+              backgroundColor: Colors.lightBlue,
+            ),
+            body: SafeArea(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Expanded(
+                    //padding: EdgeInsets.all(20.0),
+                    child: FlatButton(
+                      //color: Colors.grey,
+                      //padding:
+                      //EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0),
+                      onPressed: () {
+                        _handleURLButtonPress(context, _linktolc);
+                        Wakelock.enable();
+                      },
+                      child: Image.asset('images/tolc.png'),
+                    ),
                   ),
-                ),
-                Expanded(
-                  //padding: EdgeInsets.all(20.0),
-                  child: FlatButton(
-                    //color: Colors.grey,
-                    //padding:
-                    //EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0),
-                    onPressed: () {
-                      _handleURLButtonPress(context, _linkinvalsi);
-                      Wakelock.enable();
-                    },
-                    child: Image.asset('images/invalsi.png'),
+                  Expanded(
+                    //padding: EdgeInsets.all(20.0),
+                    child: FlatButton(
+                      //color: Colors.grey,
+                      //padding:
+                      //EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0),
+                      onPressed: () {
+                        _handleURLButtonPress(context, _linkinvalsi);
+                        Wakelock.enable();
+                      },
+                      child: Image.asset('images/invalsi.png'),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
+          onFocusGained: () {
+            onFocus = DateTime.now();
+            print('HOMEPAGE:');
+            print('Focus acquisito a $onFocus');
+            focusStat = 'HOMEPAGE:\nFocus acquisito a $onFocus\n\n';
+            status += focusStat;
+            //print('Tempo perdita focus:');
+            //print(onFocus.difference(lostFocus));
+            Fluttertoast.showToast(
+                msg: "Accesso alla Homepage",
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.blueGrey,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          },
+          onFocusLost: () {
+            lostFocus = DateTime.now();
+            print('HOMEPAGE:');
+            print('Focus perso a $lostFocus');
+            print('Tempo mantenimento focus:');
+            print(lostFocus.difference(onFocus));
+            focusStat =
+                'HOMEPAGE:\nFocus perso a $lostFocus\nTempo mantenimento focus: ${lostFocus.difference(onFocus)}\n\n';
+            status += focusStat;
+          },
         ),
-        onFocusGained: () {
-          onFocus = DateTime.now();
-          print('HOMEPAGE:');
-          print('Focus acquisito a $onFocus');
-          focusStat = 'HOMEPAGE:\nFocus acquisito a $onFocus\n\n';
-          status += focusStat;
-          //print('Tempo perdita focus:');
-          //print(onFocus.difference(lostFocus));
-          Fluttertoast.showToast(
-              msg: "Accesso alla Homepage",
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              backgroundColor: Colors.blueGrey,
-              textColor: Colors.white,
-              fontSize: 16.0);
-        },
-        onFocusLost: () {
-          lostFocus = DateTime.now();
-          print('HOMEPAGE:');
-          print('Focus perso a $lostFocus');
-          print('Tempo mantenimento focus:');
-          print(lostFocus.difference(onFocus));
-          focusStat =
-              'HOMEPAGE:\nFocus perso a $lostFocus\nTempo mantenimento focus: ${lostFocus.difference(onFocus)}\n\n';
-          status += focusStat;
-        },
       ),
     );
   }

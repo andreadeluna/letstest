@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wakelock/wakelock.dart';
 
-import '../app.dart';
+import 'home.dart';
 
 class Risultato extends StatefulWidget {
   String status;
@@ -34,8 +34,10 @@ class _RisultatoState extends State<Risultato> {
                   onPressed: () {
                     focusStat = 'RITORNO ALLA HOMEPAGE\n\n';
                     status += focusStat;
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => App(status)));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => HomePage(status)));
                     Wakelock.disable();
                   },
                 )

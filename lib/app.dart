@@ -19,17 +19,7 @@ class App extends StatelessWidget {
           headline6: TextStyle(color: Colors.red),
         ),
       ),
-      home: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: Text(
-            'Bozza Progetto',
-            style: TextStyle(color: Colors.white),
-          ),
-          backgroundColor: Colors.lightBlue,
-        ),
-        body: HomePage(status),
-      ),
+      home: HomePage(status),
     );
   }
 }
