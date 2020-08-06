@@ -17,6 +17,32 @@ class _RisultatoState extends State<Risultato> {
 
   _RisultatoState(this.status);
 
+  Future<bool> _onBackPressed() {
+    return showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text('Vuoi tornare alla Home?'),
+              actions: [
+                FlatButton(
+                  child: Text('No'),
+                  onPressed: () {
+                    Navigator.pop(context, false);
+                  },
+                ),
+                FlatButton(
+                  child: Text('Si'),
+                  onPressed: () {
+                    focusStat = 'RITORNO ALLA HOMEPAGE\n\n';
+                    status += focusStat;
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => App(status)));
+                    Wakelock.disable();
+                  },
+                )
+              ],
+            ));
+  }
+
   @override
   String focusStat = '';
 
