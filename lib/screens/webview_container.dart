@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:focusdetector/screens/risultato.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:focus_detector/focus_detector.dart';
@@ -51,6 +52,8 @@ class _WebViewContainerState extends State<WebViewContainer> {
   }
 
   @override
+  String focusStat = '';
+
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: _onBackPressed,
@@ -104,14 +107,19 @@ class _WebViewContainerState extends State<WebViewContainer> {
             onFocus = DateTime.now();
             print('PORTALE:');
             print('Focus acquisito a $onFocus');
+            focusStat = 'PORTALE:\nFocus acquisito a $onFocus\n\n';
+            status += focusStat;
+            //print('Tempo perdita focus:');
+            //print(onFocus.difference(lostFocus));
             Fluttertoast.showToast(
-                msg: "Accesso al Portale",
-                toastLength: Toast.LENGTH_LONG,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIosWeb: 1,
-                backgroundColor: Colors.blueGrey,
-                textColor: Colors.white,
-                fontSize: 16.0);
+              msg: "Accesso al Portale",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.blueGrey,
+              textColor: Colors.white,
+              fontSize: 16.0,
+            );
           },
           onFocusLost: () {
             lostFocus = DateTime.now();
@@ -119,6 +127,14 @@ class _WebViewContainerState extends State<WebViewContainer> {
             print('Focus perso a $lostFocus');
             print('Tempo mantenimento focus:');
             print(lostFocus.difference(onFocus));
+            focusStat =
+                'PORTALE:\nFocus perso a $lostFocus\nTempo mantenimento focus: ${lostFocus.difference(onFocus)}\n\n';
+            status += focusStat;
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        Risultato(status + 'TERMINE PROVA\n\n')));
           },
         ),
       ),
