@@ -27,7 +27,7 @@ class HomePage extends StatelessWidget {
             backgroundColor: Colors.white,
             appBar: AppBar(
               title: Text(
-                'Bozza Progetto',
+                'Progetto Tirocinio',
                 style: TextStyle(color: Colors.white),
               ),
               backgroundColor: Colors.lightBlue,

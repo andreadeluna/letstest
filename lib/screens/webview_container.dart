@@ -63,7 +63,7 @@ class _WebViewContainerState extends State<WebViewContainer> {
           child: Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
-              title: Text('Bozza Progetto'),
+              title: Text('Progetto Tirocinio'),
               backgroundColor: Colors.lightBlue,
             ),
             bottomNavigationBar: BottomNavigationBar(

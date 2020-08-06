@@ -55,7 +55,7 @@ class _RisultatoState extends State<Risultato> {
         home: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
-            title: Text('Bozza Progetto'),
+            title: Text('Progetto Tirocinio'),
             backgroundColor: Colors.lightBlue,
           ),
           body: SingleChildScrollView(
