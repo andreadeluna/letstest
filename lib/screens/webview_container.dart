@@ -96,10 +96,6 @@ class _WebViewContainerState extends State<WebViewContainer> {
                                 FlatButton(
                                   child: Text('Si'),
                                   onPressed: () {
-//                    lostFocus = DateTime.now();
-//                    focusStat =
-//                        'PORTALE:\nFocus perso a $lostFocus\nTempo mantenimento focus: ${lostFocus.difference(onFocus)}\n\nPREMUTO PULSANTE BACK\n\n';
-//                    status += focusStat;
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -111,17 +107,7 @@ class _WebViewContainerState extends State<WebViewContainer> {
                               ],
                             ));
                   }
-
-                  /*Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Risultato(status)));*/
-                }
-                /*setState(() {
-                  _currentIndex = index;
-                });*/
-
-                ),
+                }),
             body: Column(
               children: [
                 Expanded(
@@ -131,11 +117,6 @@ class _WebViewContainerState extends State<WebViewContainer> {
                     initialUrl: _url,
                   ),
                 ),
-                /*Expanded(
-                  child: Form(
-                    onWillPop: _onBackPressed,
-                  ),
-                )*/
               ],
             ),
           ),
@@ -145,8 +126,6 @@ class _WebViewContainerState extends State<WebViewContainer> {
             print('Focus acquisito a $onFocus');
             focusStat = 'PORTALE:\nFocus acquisito a $onFocus\n\n';
             status += focusStat;
-            //print('Tempo perdita focus:');
-            //print(onFocus.difference(lostFocus));
             Fluttertoast.showToast(
               msg: "Accesso al Portale",
               toastLength: Toast.LENGTH_LONG,

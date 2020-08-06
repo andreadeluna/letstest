@@ -38,11 +38,7 @@ class HomePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   Expanded(
-                    //padding: EdgeInsets.all(20.0),
                     child: FlatButton(
-                      //color: Colors.grey,
-                      //padding:
-                      //EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0),
                       onPressed: () {
                         _handleURLButtonPress(context, _linktolc);
                         Wakelock.enable();
@@ -51,11 +47,7 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                    //padding: EdgeInsets.all(20.0),
                     child: FlatButton(
-                      //color: Colors.grey,
-                      //padding:
-                      //EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0),
                       onPressed: () {
                         _handleURLButtonPress(context, _linkinvalsi);
                         Wakelock.enable();
@@ -73,8 +65,6 @@ class HomePage extends StatelessWidget {
             print('Focus acquisito a $onFocus');
             focusStat = 'HOMEPAGE:\nFocus acquisito a $onFocus\n\n';
             status += focusStat;
-            //print('Tempo perdita focus:');
-            //print(onFocus.difference(lostFocus));
             Fluttertoast.showToast(
                 msg: "Accesso alla Homepage",
                 toastLength: Toast.LENGTH_LONG,
