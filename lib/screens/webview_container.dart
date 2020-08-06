@@ -6,11 +6,12 @@ import 'package:wakelock/wakelock.dart';
 
 class WebViewContainer extends StatefulWidget {
   final url;
+  String status;
 
-  WebViewContainer(this.url);
+  WebViewContainer(this.url, this.status);
 
   @override
-  createState() => _WebViewContainerState(this.url);
+  createState() => _WebViewContainerState(this.url, status);
 }
 
 class _WebViewContainerState extends State<WebViewContainer> {
@@ -19,8 +20,9 @@ class _WebViewContainerState extends State<WebViewContainer> {
   var _url;
   final _key = UniqueKey();
   int _currentIndex = 0;
+  String status;
 
-  _WebViewContainerState(this._url);
+  _WebViewContainerState(this._url, this.status);
 
   Future<bool> _onBackPressed() {
     return showDialog(
@@ -30,12 +32,17 @@ class _WebViewContainerState extends State<WebViewContainer> {
               actions: [
                 FlatButton(
                   child: Text('No'),
-                  onPressed: () => Navigator.pop(context, false),
+                  onPressed: () {
+                    Navigator.pop(context, false);
+                  },
                 ),
                 FlatButton(
                   child: Text('Si'),
                   onPressed: () {
-                    Navigator.pop(context, true);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Risultato(status)));
                     Wakelock.disable();
                   },
                 )
