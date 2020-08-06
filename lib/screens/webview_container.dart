@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:focusdetector/screens/risultato.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:focus_detector/focus_detector.dart';
 import 'package:wakelock/wakelock.dart';
+import 'risultato.dart';
 
 class WebViewContainer extends StatefulWidget {
   final url;
