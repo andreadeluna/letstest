@@ -9,6 +9,7 @@ class HomePage extends StatelessWidget {
   HomePage(this.status);
 
   String status;
+  int focusFlag;
   final _resumeDetectorKey = UniqueKey();
   DateTime onFocus = new DateTime.now(), lostFocus = new DateTime.now();
   final _linktolc =
@@ -60,6 +61,7 @@ class HomePage extends StatelessWidget {
             ),
           ),
           onFocusGained: () {
+            focusFlag = 0;
             onFocus = DateTime.now();
             print('HOMEPAGE:');
             print('Focus acquisito a $onFocus');
@@ -75,14 +77,17 @@ class HomePage extends StatelessWidget {
                 fontSize: 16.0);
           },
           onFocusLost: () {
+            focusFlag += 1;
             lostFocus = DateTime.now();
             print('HOMEPAGE:');
             print('Focus perso a $lostFocus');
             print('Tempo mantenimento focus:');
             print(lostFocus.difference(onFocus));
-            focusStat =
-                'HOMEPAGE:\nFocus perso a $lostFocus\nTempo mantenimento focus: ${lostFocus.difference(onFocus)}\n\n';
-            status += focusStat;
+            if (focusFlag == 1) {
+              focusStat =
+                  'HOMEPAGE:\nFocus perso a $lostFocus\nTempo mantenimento focus: ${lostFocus.difference(onFocus)}\n\n';
+              status += focusStat;
+            }
           },
         ),
       ),

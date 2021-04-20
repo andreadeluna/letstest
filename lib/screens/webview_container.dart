@@ -53,6 +53,8 @@ class _WebViewContainerState extends State<WebViewContainer> {
 
   @override
   String focusStat = '';
+  int esci = 0;
+  int focusAttuale;
 
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -96,11 +98,13 @@ class _WebViewContainerState extends State<WebViewContainer> {
                                 FlatButton(
                                   child: Text('Si'),
                                   onPressed: () {
+                                    esci = 1;
+                                    lostFocus = DateTime.now();
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) =>
-                                                Risultato(status)));
+                                            builder: (context) => Risultato(status +
+                                                'PORTALE:\nFocus perso a $lostFocus\nTempo mantenimento focus: ${lostFocus.difference(onFocus)}\n\n TERMINE PROVA\n\n')));
                                     Wakelock.disable();
                                   },
                                 )
@@ -121,6 +125,7 @@ class _WebViewContainerState extends State<WebViewContainer> {
             ),
           ),
           onFocusGained: () {
+            focusAttuale = 0;
             onFocus = DateTime.now();
             print('PORTALE:');
             print('Focus acquisito a $onFocus');
@@ -137,19 +142,28 @@ class _WebViewContainerState extends State<WebViewContainer> {
             );
           },
           onFocusLost: () {
+            focusAttuale += 1;
             lostFocus = DateTime.now();
             print('PORTALE:');
             print('Focus perso a $lostFocus');
             print('Tempo mantenimento focus:');
             print(lostFocus.difference(onFocus));
-            focusStat =
-                'PORTALE:\nFocus perso a $lostFocus\nTempo mantenimento focus: ${lostFocus.difference(onFocus)}\n\n';
-            status += focusStat;
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        Risultato(status + 'TERMINE PROVA\n\n')));
+            if (focusAttuale == 1) {
+              focusStat =
+                  'PORTALE:\nFocus perso a $lostFocus\nTempo mantenimento focus: ${lostFocus.difference(onFocus)}\n\n';
+              status += focusStat +
+                  ((esci == 0)
+                      ? 'PROBABILE USCITA ERRONEA\n\n'
+                      : 'TERMINE PROVA\n\n');
+              print(status);
+              /*Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Risultato(status +
+                          ((esci == 0)
+                              ? 'PROBABILE USCITA ERRONEA\n\nTERMINE PROVA\n\n'
+                              : 'TERMINE PROVA\n\n'))));*/
+            }
           },
         ),
       ),

@@ -15,7 +15,7 @@ class Risultato extends StatefulWidget {
 class _RisultatoState extends State<Risultato> {
   String status;
 
-  _RisultatoState(this.status);
+  _RisultatoState(this.status)  ;
 
   Future<bool> _onBackPressed() {
     return showDialog(
@@ -61,13 +61,17 @@ class _RisultatoState extends State<Risultato> {
           body: SingleChildScrollView(
             child: Column(
               children: [
+                Text(
+                  'Storico azioni',
+                  style: TextStyle(fontSize: 34, color: Colors.red),
+                ),
                 Container(
                   color: Colors.white,
                   child: Center(
                     child: Text(
                       '$status',
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 16.5,
                       ),
                     ),
                   ),
