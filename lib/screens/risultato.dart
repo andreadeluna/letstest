@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wakelock/wakelock.dart';
 
 import 'home.dart';
+import 'home.dart';
 
 class Risultato extends StatefulWidget {
   String status;
@@ -15,7 +16,7 @@ class Risultato extends StatefulWidget {
 class _RisultatoState extends State<Risultato> {
   String status;
 
-  _RisultatoState(this.status)  ;
+  _RisultatoState(this.status);
 
   Future<bool> _onBackPressed() {
     return showDialog(
