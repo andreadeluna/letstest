@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:progettotirocinio/screens/form_screen.dart';
 import 'screens/home.dart';
 
 class App extends StatelessWidget {
@@ -19,7 +20,7 @@ class App extends StatelessWidget {
           headline6: TextStyle(color: Colors.red),
         ),
       ),
-      home: HomePage(status),
+      home: FormScreen(status),
     );
   }
 }

@@ -29,7 +29,7 @@ class HomePage extends StatelessWidget {
             appBar: AppBar(
               title: Text(
                 'Progetto Tirocinio',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white, fontSize: 24.0),
               ),
               backgroundColor: Colors.lightBlue,
             ),
