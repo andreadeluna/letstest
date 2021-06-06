@@ -115,7 +115,7 @@ class FormScreenState extends State<FormScreen> {
 
                       _formKey.currentState.save();
                       focusStat =
-                          'DATI:\nNome: $_name\nEmail: $_email\nTelefono: $_phonenumber\n\n';
+                          'DATI:\nNome: $_name\nEmail: $_email\nTelefono: $_phonenumber\n\n  ';
                       status += focusStat;
                       print(_name);
                       print(_email);
@@ -125,7 +125,7 @@ class FormScreenState extends State<FormScreen> {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  HomePage(status + 'INVIO DATI\n\n')));
+                                  HomePage(status + 'INVIO DATI\n\n  ')));
                     },
                   )
                 ],

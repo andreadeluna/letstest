@@ -33,7 +33,7 @@ class _RisultatoState extends State<Risultato> {
                 FlatButton(
                   child: Text('Si'),
                   onPressed: () {
-                    focusStat = 'RITORNO ALLA HOMEPAGE\n\n';
+                    focusStat = 'RITORNO ALLA HOMEPAGE\n\n  ';
                     status += focusStat;
                     Navigator.push(
                         context,
@@ -50,6 +50,8 @@ class _RisultatoState extends State<Risultato> {
   String focusStat = '';
 
   Widget build(BuildContext context) {
+    List<String> stato = status.split('  ');
+
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: MaterialApp(
@@ -67,10 +69,11 @@ class _RisultatoState extends State<Risultato> {
                   style: TextStyle(fontSize: 34, color: Colors.red),
                 ),
                 Container(
+                  margin: EdgeInsets.all(25),
                   color: Colors.white,
                   child: Center(
                     child: Text(
-                      '$status',
+                      '$stato',
                       style: TextStyle(
                         fontSize: 16.5,
                       ),

@@ -65,7 +65,7 @@ class HomePage extends StatelessWidget {
             onFocus = DateTime.now();
             print('HOMEPAGE:');
             print('Focus acquisito a $onFocus');
-            focusStat = 'HOMEPAGE:\nFocus acquisito a $onFocus\n\n';
+            focusStat = 'HOMEPAGE:\nFocus acquisito a $onFocus\n\n  ';
             status += focusStat;
             Fluttertoast.showToast(
                 msg: "Accesso alla Homepage",
@@ -85,7 +85,7 @@ class HomePage extends StatelessWidget {
             print(lostFocus.difference(onFocus));
             if (focusFlag == 1) {
               focusStat =
-                  'HOMEPAGE:\nFocus perso a $lostFocus\nTempo mantenimento focus: ${lostFocus.difference(onFocus)}\n\n';
+                  'HOMEPAGE:\nFocus perso a $lostFocus\nTempo mantenimento focus: ${lostFocus.difference(onFocus)}\n\n  ';
               status += focusStat;
             }
           },
@@ -97,8 +97,8 @@ class HomePage extends StatelessWidget {
   void _handleURLButtonPress(BuildContext context, String url) {
     lostFocus = DateTime.now();
     focusStat =
-        'HOMEPAGE:\nFocus perso a $lostFocus\nTempo mantenimento focus: ${lostFocus.difference(onFocus)}\n\n'
-        'ACCESSO AL PORTALE\n\n';
+        'HOMEPAGE:\nFocus perso a $lostFocus\nTempo mantenimento focus: ${lostFocus.difference(onFocus)}\n\n  '
+        'ACCESSO AL PORTALE\n\n  ';
     status += focusStat;
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => WebViewContainer(url, status)));

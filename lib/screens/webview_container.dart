@@ -104,7 +104,7 @@ class _WebViewContainerState extends State<WebViewContainer> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => Risultato(status +
-                                                'PORTALE:\nFocus perso a $lostFocus\nTempo mantenimento focus: ${lostFocus.difference(onFocus)}\n\n TERMINE PROVA\n\n')));
+                                                'PORTALE:\nFocus perso a $lostFocus\nTempo mantenimento focus: ${lostFocus.difference(onFocus)}\n\n  TERMINE PROVA\n\n  ')));
                                     Wakelock.disable();
                                   },
                                 )
@@ -129,7 +129,7 @@ class _WebViewContainerState extends State<WebViewContainer> {
             onFocus = DateTime.now();
             print('PORTALE:');
             print('Focus acquisito a $onFocus');
-            focusStat = 'PORTALE:\nFocus acquisito a $onFocus\n\n';
+            focusStat = 'PORTALE:\nFocus acquisito a $onFocus\n\n  ';
             status += focusStat;
             Fluttertoast.showToast(
               msg: "Accesso al Portale",
@@ -150,11 +150,11 @@ class _WebViewContainerState extends State<WebViewContainer> {
             print(lostFocus.difference(onFocus));
             if (focusAttuale == 1) {
               focusStat =
-                  'PORTALE:\nFocus perso a $lostFocus\nTempo mantenimento focus: ${lostFocus.difference(onFocus)}\n\n';
+                  'PORTALE:\nFocus perso a $lostFocus\nTempo mantenimento focus: ${lostFocus.difference(onFocus)}\n\n  ';
               status += focusStat +
                   ((esci == 0)
-                      ? 'PROBABILE USCITA ERRONEA\n\n'
-                      : 'TERMINE PROVA\n\n');
+                      ? 'PROBABILE USCITA ERRONEA\n\n  '
+                      : 'TERMINE PROVA\n\n  ');
               print(status);
               /*Navigator.push(
                   context,
