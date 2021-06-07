@@ -46,11 +46,30 @@ class _RisultatoState extends State<Risultato> {
             ));
   }
 
+  List<Widget> textWidgetList = List<Widget>();
+
   @override
   String focusStat = '';
 
   Widget build(BuildContext context) {
     List<String> stato = status.split('  ');
+
+    for (int i = 0; i < stato.length; i++) {
+      textWidgetList.add(Container(
+        margin: EdgeInsets.all(0),
+        color: Colors.white,
+        child: Center(
+          child: Text(
+            stato[i],
+            style: TextStyle(
+                fontSize: 15,
+                color: ((stato[i] == 'PROBABILE USCITA ERRONEA\n\n')
+                    ? Colors.red
+                    : Colors.black)),
+          ),
+        ),
+      ));
+    }
 
     return WillPopScope(
       onWillPop: _onBackPressed,
@@ -63,24 +82,14 @@ class _RisultatoState extends State<Risultato> {
           ),
           body: SingleChildScrollView(
             child: Column(
-              children: [
+              children: textWidgetList,
+              /*[
                 Text(
                   'Storico azioni',
                   style: TextStyle(fontSize: 34, color: Colors.red),
                 ),
-                Container(
-                  margin: EdgeInsets.all(25),
-                  color: Colors.white,
-                  child: Center(
-                    child: Text(
-                      '$stato',
-                      style: TextStyle(
-                        fontSize: 16.5,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+
+              ],*/
             ),
           ),
         ),
