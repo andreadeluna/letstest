@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -8,22 +10,27 @@ import 'risultato.dart';
 class WebViewContainer extends StatefulWidget {
   final url;
   String status;
+  String dominio;
 
-  WebViewContainer(this.url, this.status);
+  WebViewContainer(this.url, this.status, this.dominio);
 
   @override
-  createState() => _WebViewContainerState(this.url, status);
+  createState() => _WebViewContainerState(this.url, status, dominio);
 }
 
 class _WebViewContainerState extends State<WebViewContainer> {
+  final Completer<WebViewController> _controller =
+      Completer<WebViewController>();
+
   final _resumeDetectorKey = UniqueKey();
   DateTime onFocus = new DateTime.now(), lostFocus = new DateTime.now();
   var _url;
   final _key = UniqueKey();
   int _currentIndex = 0;
   String status;
+  String dominio;
 
-  _WebViewContainerState(this._url, this.status);
+  _WebViewContainerState(this._url, this.status, this.dominio);
 
   Future<bool> _onBackPressed() {
     return showDialog(
@@ -119,6 +126,26 @@ class _WebViewContainerState extends State<WebViewContainer> {
                     key: _key,
                     javascriptMode: JavascriptMode.unrestricted,
                     initialUrl: _url,
+                    onWebViewCreated: (WebViewController webViewController) {
+                      _controller.complete(webViewController);
+                    },
+                    navigationDelegate: (NavigationRequest request) {
+                      if (!(request.url.contains(dominio))) {
+                        print('blocking navigation to $request}');
+                        Fluttertoast.showToast(
+                          msg: "Non è possibile uscire dal portale",
+                          toastLength: Toast.LENGTH_LONG,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.blueGrey,
+                          textColor: Colors.white,
+                          fontSize: 16.0,
+                        );
+                        return NavigationDecision.prevent;
+                      }
+                      print('allowing navigation to $request');
+                      return NavigationDecision.navigate;
+                    },
                   ),
                 ),
               ],

@@ -14,7 +14,11 @@ class HomePage extends StatelessWidget {
   DateTime onFocus = new DateTime.now(), lostFocus = new DateTime.now();
   final _linktolc =
       'https://www.cisiaonline.it/area-tematica-tolc-cisia/home-tolc-generale/';
-  final _linkinvalsi = 'https://invalsi-areaprove.cineca.it/';
+  final _linkinvalsi = 'https://www.proveinvalsi.net/';
+  final _linkblended = 'https://blended.uniurb.it/moodle/';
+  final dominiotolc = 'cisiaonline';
+  final dominioinvalsi = 'invalsi';
+  final dominioblended = 'uniurb';
 
   @override
   String focusStat = '';
@@ -41,7 +45,7 @@ class HomePage extends StatelessWidget {
                   Expanded(
                     child: FlatButton(
                       onPressed: () {
-                        _handleURLButtonPress(context, _linktolc);
+                        _handleURLButtonPress(context, _linktolc, dominiotolc);
                         Wakelock.enable();
                       },
                       child: Image.asset('images/tolc.png'),
@@ -50,10 +54,21 @@ class HomePage extends StatelessWidget {
                   Expanded(
                     child: FlatButton(
                       onPressed: () {
-                        _handleURLButtonPress(context, _linkinvalsi);
+                        _handleURLButtonPress(
+                            context, _linkinvalsi, dominioinvalsi);
                         Wakelock.enable();
                       },
                       child: Image.asset('images/invalsi.png'),
+                    ),
+                  ),
+                  Expanded(
+                    child: FlatButton(
+                      onPressed: () {
+                        _handleURLButtonPress(
+                            context, _linkblended, dominioblended);
+                        Wakelock.enable();
+                      },
+                      child: Image.asset('images/uniurb.png'),
                     ),
                   ),
                 ],
@@ -94,13 +109,15 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  void _handleURLButtonPress(BuildContext context, String url) {
+  void _handleURLButtonPress(BuildContext context, String url, String dominio) {
     lostFocus = DateTime.now();
     focusStat =
         'HOMEPAGE:\nFocus perso a $lostFocus\nTempo mantenimento focus: ${lostFocus.difference(onFocus)}\n\n  '
         'ACCESSO AL PORTALE\n\n  ';
     status += focusStat;
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => WebViewContainer(url, status)));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => WebViewContainer(url, status, dominio)));
   }
 }
