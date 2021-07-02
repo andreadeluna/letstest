@@ -1,8 +1,14 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 import 'package:wakelock/wakelock.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
 
 import 'home.dart';
 import 'home.dart';
+import 'pdf_preview_screen.dart';
 
 class Risultato extends StatefulWidget {
   String status;
@@ -14,7 +20,9 @@ class Risultato extends StatefulWidget {
 }
 
 class _RisultatoState extends State<Risultato> {
+  final pdf = pw.Document();
   String status;
+  String prova = "Prova PDF";
 
   _RisultatoState(this.status);
 
@@ -82,7 +90,52 @@ class _RisultatoState extends State<Risultato> {
           ),
           body: SingleChildScrollView(
             child: Column(
-              children: textWidgetList,
+              children: <Widget>[
+                Column(
+                  children: textWidgetList,
+                ),
+                Container(
+                  margin: EdgeInsets.all(25),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: RaisedButton(
+                      color: Colors.blueGrey,
+                      child: Text(
+                        'Preview PDF',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            color: Colors.white),
+                      ),
+                      onPressed: () async {
+                        writeOnPdf();
+                        await savePdf();
+
+                        Directory documentDirectory =
+                            await getApplicationDocumentsDirectory();
+
+                        String documentPath = documentDirectory.path;
+
+                        String fullPath = "$documentPath/risultatoprova.pdf";
+                        print(fullPath);
+
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PdfPreviewScreen(
+                                      path: fullPath,
+                                    )));
+                      },
+                    ),
+                  ),
+                ),
+                SizedBox(height: 15),
+                ElevatedButton.icon(
+                    onPressed: _shareContent,
+                    icon: Icon(Icons.share),
+                    label: Text('Condividi'))
+              ],
+              //textWidgetList,
               /*[
                 Text(
                   'Storico azioni',
@@ -95,5 +148,54 @@ class _RisultatoState extends State<Risultato> {
         ),
       ),
     );
+  }
+
+  writeOnPdf() {
+    pdf.addPage(pw.MultiPage(
+      pageFormat: PdfPageFormat.a4,
+      margin: pw.EdgeInsets.all(32),
+      build: (pw.Context context) {
+        return <pw.Widget>[
+          pw.Header(
+              level: 0,
+              child: pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                  children: <pw.Widget>[
+                    pw.Text('Riepilogo azioni', textScaleFactor: 2),
+                  ])),
+          pw.Header(level: 1, text: 'Titolo paragrafo'),
+
+          // Write All the paragraph in one line.
+          // For clear understanding
+          // here there are line breaks.
+          pw.Paragraph(text: prova),
+          pw.Paragraph(text: "Paragrafo 1"),
+          pw.Header(level: 1, text: 'Titolo paragrafo'),
+          pw.Paragraph(text: "Paragrafo 2"),
+          pw.Paragraph(text: "Paragrafo 3"),
+          pw.Padding(padding: const pw.EdgeInsets.all(10)),
+          pw.Table.fromTextArray(context: context, data: const <List<String>>[
+            <String>['Colonna 1', 'Colonna 2'],
+            <String>['1', '1'],
+            <String>['2', '2'],
+            <String>['3', '3'],
+            <String>['4', '4'],
+          ]),
+        ];
+      },
+    ));
+  }
+
+  Future savePdf() async {
+    Directory documentDirectory = await getApplicationDocumentsDirectory();
+    String documentPath = documentDirectory.path;
+    File file = File("$documentPath/risultatoprova.pdf");
+    file.writeAsBytesSync(pdf.save());
+  }
+
+  void _shareContent() async {
+    Directory documentDirectory = await getApplicationDocumentsDirectory();
+    String documentPath = documentDirectory.path;
+    Share.shareFiles(['$documentPath/risultatoprova.pdf']);
   }
 }
