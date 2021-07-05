@@ -64,6 +64,7 @@ class _RisultatoState extends State<Risultato> {
 
   Widget build(BuildContext context) {
     List<String> stato = status.split('  ');
+    List<String> cronologiaweb = cronologia.split('  ');
 
     for (int i = 0; i < stato.length; i++) {
       textWidgetList.add(Container(
@@ -111,7 +112,7 @@ class _RisultatoState extends State<Risultato> {
                             color: Colors.white),
                       ),
                       onPressed: () async {
-                        writeOnPdf();
+                        writeOnPdf(stato, cronologiaweb);
                         await savePdf();
 
                         Directory documentDirectory =
@@ -153,7 +154,7 @@ class _RisultatoState extends State<Risultato> {
     );
   }
 
-  writeOnPdf() {
+  writeOnPdf(List stato, List cronologiaweb) {
     pdf.addPage(pw.MultiPage(
       pageFormat: PdfPageFormat.a4,
       margin: pw.EdgeInsets.all(32),
@@ -166,17 +167,69 @@ class _RisultatoState extends State<Risultato> {
                   children: <pw.Widget>[
                     pw.Text('Riepilogo azioni', textScaleFactor: 2),
                   ])),
-          pw.Header(level: 1, text: 'Titolo paragrafo'),
+          pw.Header(level: 1, text: 'Dati utente'),
+          //for (int i = 2; i < 7; i++)
+          pw.Paragraph(text: stato[1]),
 
+          pw.Header(level: 1, text: 'Azioni compiute'),
+          for (int i = 3; i < stato.length; i++) pw.Paragraph(text: stato[i]),
+
+          // pw.Header(level: 1, text: 'Dati navigazione'),
+          // for (int i = 0; i < cronologiaweb.length; i++)
+          //   pw.Paragraph(text: cronologiaweb[i]),
           // Write All the paragraph in one line.
           // For clear understanding
           // here there are line breaks.
-          pw.Paragraph(text: prova),
-          pw.Paragraph(text: "$status"),
-          pw.Header(level: 1, text: 'Titolo paragrafo (Cronologia)'),
-          pw.Paragraph(text: "$cronologia"),
-          pw.Paragraph(text: "Paragrafo 3"),
-          pw.Padding(padding: const pw.EdgeInsets.all(10)),
+          // pw.Paragraph(text: prova),
+          // pw.,
+          // pw.Paragraph(text: "$status"),
+          // pw.Header(level: 1, text: 'Titolo paragrafo (Cronologia)'),
+          // pw.Paragraph(text: "$cronologia"),
+          // pw.Paragraph(text: "Paragrafo 3"),
+          // pw.Padding(padding: const pw.EdgeInsets.all(10)),
+          /*pw.Table.fromTextArray(context: context, data: const <List<String>>[
+            <String>['Colonna 1', 'Colonna 2'],
+            <String>['1', '1'],
+            <String>['2', '2'],
+            <String>['3', '3'],
+            <String>['4', '4'],
+          ]),*/
+        ];
+      },
+    ));
+
+    pdf.addPage(pw.MultiPage(
+      pageFormat: PdfPageFormat.a4,
+      margin: pw.EdgeInsets.all(32),
+      build: (pw.Context context) {
+        return <pw.Widget>[
+          pw.Header(
+              level: 0,
+              child: pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                  children: <pw.Widget>[
+                    pw.Text('Riepilogo azioni', textScaleFactor: 2),
+                  ])),
+          // pw.Header(level: 1, text: 'Dati utente'),
+          // //for (int i = 2; i < 7; i++)
+          // pw.Paragraph(text: stato[1]),
+          //
+          // pw.Header(level: 1, text: 'Azioni compiute'),
+          // for (int i = 3; i < stato.length; i++) pw.Paragraph(text: stato[i]),
+
+          pw.Header(level: 1, text: 'Dati navigazione'),
+          for (int i = 0; i < cronologiaweb.length; i++)
+            pw.Paragraph(text: cronologiaweb[i]),
+          // Write All the paragraph in one line.
+          // For clear understanding
+          // here there are line breaks.
+          // pw.Paragraph(text: prova),
+          // pw.,
+          // pw.Paragraph(text: "$status"),
+          // pw.Header(level: 1, text: 'Titolo paragrafo (Cronologia)'),
+          // pw.Paragraph(text: "$cronologia"),
+          // pw.Paragraph(text: "Paragrafo 3"),
+          // pw.Padding(padding: const pw.EdgeInsets.all(10)),
           /*pw.Table.fromTextArray(context: context, data: const <List<String>>[
             <String>['Colonna 1', 'Colonna 2'],
             <String>['1', '1'],

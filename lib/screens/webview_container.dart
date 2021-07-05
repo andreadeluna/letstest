@@ -141,7 +141,7 @@ class _WebViewContainerState extends State<WebViewContainer> {
                         if (!(request.url.contains(dominio))) {
                           print('blocking navigation to $request}');
                           sitoAttuale =
-                              '\n\n TENTATIVO DI ACCESSO A ${request.url}\n\n';
+                              'TENTATIVO DI ACCESSO A\n${request.url}\n\n  ';
                           cronologia += sitoAttuale;
                           Fluttertoast.showToast(
                             msg: "Non è possibile uscire dal portale",
@@ -167,7 +167,7 @@ class _WebViewContainerState extends State<WebViewContainer> {
                         print('Page finished loading: $url');
                         //listUrl.add(url);
                         //print(listUrl);
-                        sitoAttuale = url + '\n\n';
+                        sitoAttuale = url + '\n\n  ';
                         cronologia += sitoAttuale;
                       }),
                 ),
