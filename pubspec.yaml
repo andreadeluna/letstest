@@ -18,6 +18,7 @@ dependencies:
   path_provider: ^1.6.5
   flutter_full_pdf_viewer: ^1.0.6
   webview_flutter: ^2.0.9
+  flutter_plugin_pdf_viewer: ^1.0.7
   share: ^2.0.4
 
 

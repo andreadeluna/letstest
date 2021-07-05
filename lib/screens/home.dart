@@ -6,9 +6,10 @@ import 'package:wakelock/wakelock.dart';
 import 'package:flutter/services.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage(this.status);
+  HomePage(this.status, this.cronologia);
 
   String status;
+  String cronologia;
   int focusFlag;
   final _resumeDetectorKey = UniqueKey();
   DateTime onFocus = new DateTime.now(), lostFocus = new DateTime.now();
@@ -118,6 +119,6 @@ class HomePage extends StatelessWidget {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => WebViewContainer(url, status, dominio)));
+            builder: (context) => WebViewContainer(url, status, dominio, cronologia)));
   }
 }

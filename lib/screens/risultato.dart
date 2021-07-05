@@ -12,19 +12,21 @@ import 'pdf_preview_screen.dart';
 
 class Risultato extends StatefulWidget {
   String status;
+  String cronologia;
 
-  Risultato(this.status);
+  Risultato(this.status, this.cronologia);
 
   @override
-  _RisultatoState createState() => _RisultatoState(status);
+  _RisultatoState createState() => _RisultatoState(status, cronologia);
 }
 
 class _RisultatoState extends State<Risultato> {
   final pdf = pw.Document();
   String status;
+  String cronologia;
   String prova = "Prova PDF";
 
-  _RisultatoState(this.status);
+  _RisultatoState(this.status, this.cronologia);
 
   Future<bool> _onBackPressed() {
     return showDialog(
@@ -46,7 +48,8 @@ class _RisultatoState extends State<Risultato> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => HomePage(status)));
+                            builder: (context) =>
+                                HomePage(status, cronologia)));
                     Wakelock.disable();
                   },
                 )
@@ -123,7 +126,7 @@ class _RisultatoState extends State<Risultato> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => PdfPreviewScreen(
-                                      path: fullPath,
+                                      fullPath,
                                     )));
                       },
                     ),
@@ -169,18 +172,18 @@ class _RisultatoState extends State<Risultato> {
           // For clear understanding
           // here there are line breaks.
           pw.Paragraph(text: prova),
-          pw.Paragraph(text: "Paragrafo 1"),
-          pw.Header(level: 1, text: 'Titolo paragrafo'),
-          pw.Paragraph(text: "Paragrafo 2"),
+          pw.Paragraph(text: "$status"),
+          pw.Header(level: 1, text: 'Titolo paragrafo (Cronologia)'),
+          pw.Paragraph(text: "$cronologia"),
           pw.Paragraph(text: "Paragrafo 3"),
           pw.Padding(padding: const pw.EdgeInsets.all(10)),
-          pw.Table.fromTextArray(context: context, data: const <List<String>>[
+          /*pw.Table.fromTextArray(context: context, data: const <List<String>>[
             <String>['Colonna 1', 'Colonna 2'],
             <String>['1', '1'],
             <String>['2', '2'],
             <String>['3', '3'],
             <String>['4', '4'],
-          ]),
+          ]),*/
         ];
       },
     ));

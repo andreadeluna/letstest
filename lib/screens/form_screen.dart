@@ -3,24 +3,26 @@ import 'package:progettotirocinio/screens/home.dart';
 
 class FormScreen extends StatefulWidget {
   String status;
+  String cronologia;
 
-  FormScreen(this.status);
+  FormScreen(this.status, this.cronologia);
 
   @override
   State<StatefulWidget> createState() {
-    return FormScreenState(status);
+    return FormScreenState(status, cronologia);
   }
 }
 
 class FormScreenState extends State<FormScreen> {
   String status;
+  String cronologia;
   String _name;
   String _email;
   String _phonenumber;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  FormScreenState(this.status);
+  FormScreenState(this.status, this.cronologia);
 
   Widget _buildName() {
     return TextFormField(
@@ -125,7 +127,7 @@ class FormScreenState extends State<FormScreen> {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  HomePage(status + 'INVIO DATI\n\n  ')));
+                                  HomePage(status + 'INVIO DATI\n\n  ', cronologia)));
                     },
                   )
                 ],

@@ -3,9 +3,10 @@ import 'package:progettotirocinio/screens/form_screen.dart';
 import 'screens/home.dart';
 
 class App extends StatelessWidget {
-  App(this.status);
+  App(this.status, this.cronologia);
 
   String status;
+  String cronologia;
   DateTime onFocus = new DateTime.now(), lostFocus = new DateTime.now();
 
   @override
@@ -20,7 +21,7 @@ class App extends StatelessWidget {
           headline6: TextStyle(color: Colors.red),
         ),
       ),
-      home: FormScreen(status),
+      home: FormScreen(status, cronologia),
     );
   }
 }
