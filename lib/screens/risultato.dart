@@ -7,7 +7,6 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import 'home.dart';
-import 'home.dart';
 import 'pdf_preview_screen.dart';
 
 class Risultato extends StatefulWidget {

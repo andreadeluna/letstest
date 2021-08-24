@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:focus_detector/focus_detector.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'webview_container.dart';
@@ -30,49 +31,135 @@ class HomePage extends StatelessWidget {
         child: FocusDetector(
           key: _resumeDetectorKey,
           child: Scaffold(
-            backgroundColor: Colors.white,
-            appBar: AppBar(
+            backgroundColor: Colors.lightBlue,
+            /*appBar: AppBar(
               title: Text(
                 'Progetto Tirocinio',
                 style: TextStyle(color: Colors.white, fontSize: 24.0),
               ),
               backgroundColor: Colors.lightBlue,
-            ),
+            ),*/
             body: SafeArea(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Expanded(
-                    child: FlatButton(
-                      onPressed: () {
-                        _handleURLButtonPress(context, _linktolc, dominiotolc);
-                        Wakelock.enable();
-                      },
-                      child: Image.asset('images/tolc.png'),
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 30),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    gradient:
+                        LinearGradient(begin: Alignment.topCenter, colors: [
+                  Colors.lightBlue[800],
+                  Colors.lightBlue[700],
+                  Colors.lightBlue[300],
+                ])),
+                child: Column(
+                  //mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(height: 10),
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            "Scelta portale",
+                            style: TextStyle(color: Colors.white, fontSize: 40),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: FlatButton(
-                      onPressed: () {
-                        _handleURLButtonPress(
-                            context, _linkinvalsi, dominioinvalsi);
-                        Wakelock.enable();
-                      },
-                      child: Image.asset('images/invalsi.png'),
+                    SizedBox(height: 10),
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.all(5),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(
+                                color: Colors.blue[900],
+                                style: BorderStyle.solid,
+                                width: 2),
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(30),
+                                topRight: Radius.circular(30),
+                                bottomLeft: Radius.circular(30),
+                                bottomRight: Radius.circular(30)),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                _handleURLButtonPress(
+                                    context, _linktolc, dominiotolc);
+                                Wakelock.enable();
+                              },
+                              child: Image.asset('images/tolc.png'),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: FlatButton(
-                      onPressed: () {
-                        _handleURLButtonPress(
-                            context, _linkblended, dominioblended);
-                        Wakelock.enable();
-                      },
-                      child: Image.asset('images/uniurb.png'),
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.all(5),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(
+                                color: Colors.blue[900],
+                                style: BorderStyle.solid,
+                                width: 2),
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(30),
+                                topRight: Radius.circular(30),
+                                bottomLeft: Radius.circular(30),
+                                bottomRight: Radius.circular(30)),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                _handleURLButtonPress(
+                                    context, _linkinvalsi, dominioinvalsi);
+                                Wakelock.enable();
+                              },
+                              child: Image.asset('images/invalsi.png'),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ],
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.all(5),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(
+                                color: Colors.blue[900],
+                                style: BorderStyle.solid,
+                                width: 2),
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(30),
+                                topRight: Radius.circular(30),
+                                bottomLeft: Radius.circular(30),
+                                bottomRight: Radius.circular(30)),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                _handleURLButtonPress(
+                                    context, _linkblended, dominioblended);
+                                Wakelock.enable();
+                              },
+                              child: Image.asset('images/uniurb.png'),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -119,6 +206,7 @@ class HomePage extends StatelessWidget {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => WebViewContainer(url, status, dominio, cronologia)));
+            builder: (context) =>
+                WebViewContainer(url, status, dominio, cronologia)));
   }
 }
