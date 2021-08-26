@@ -39,7 +39,6 @@ class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState(status, cronologia);
 }
 
-
 // *** LINK VIDEO: https://www.youtube.com/watch?v=PQB1E2JLZJA ***
 
 class _SplashScreenState extends State<SplashScreen> {
@@ -50,14 +49,12 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    Timer(Duration(seconds: 3), (){
+    Timer(Duration(seconds: 3), () {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) =>
-                  FormScreen(status, cronologia)));
+              builder: (context) => FormScreen(status, cronologia)));
     });
   }
 
@@ -94,4 +91,3 @@ class _State extends State<> {
     return Container();
   }
 }*/
-
