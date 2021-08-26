@@ -89,7 +89,7 @@ class FormScreenState extends State<FormScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
-        padding: EdgeInsets.symmetric(vertical: 30),
+        padding: EdgeInsets.symmetric(vertical: 0),
         width: double.infinity,
         decoration: BoxDecoration(
             gradient: LinearGradient(begin: Alignment.topCenter, colors: [
@@ -121,8 +121,8 @@ class FormScreenState extends State<FormScreen> {
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(60),
                       topRight: Radius.circular(60),
-                      bottomLeft: Radius.circular(60),
-                      bottomRight: Radius.circular(60)),
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20)),
                 ),
                 child: Padding(
                   padding: EdgeInsets.all(30),
@@ -190,8 +190,14 @@ class FormScreenState extends State<FormScreen> {
                               borderRadius: BorderRadius.circular(50),
                               color: Colors.lightBlue[900]),
                           child: Center(
-                              child: Text("Invia", style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold), ),
-                              ),
+                            child: Text(
+                              "Invia",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
                         ),
                       )
                     ],

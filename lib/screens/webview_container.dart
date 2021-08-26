@@ -75,12 +75,8 @@ class _WebViewContainerState extends State<WebViewContainer> {
         home: FocusDetector(
           key: _resumeDetectorKey,
           child: Scaffold(
-            backgroundColor: Colors.white,
-            appBar: AppBar(
-              title: Text('Progetto Tirocinio'),
-              backgroundColor: Colors.lightBlue,
-            ),
-            bottomNavigationBar: BottomNavigationBar(
+            resizeToAvoidBottomInset: false,
+            /*bottomNavigationBar: BottomNavigationBar(
                 currentIndex: _currentIndex,
                 items: [
                   BottomNavigationBarItem(
@@ -101,7 +97,7 @@ class _WebViewContainerState extends State<WebViewContainer> {
                         builder: (context) => AlertDialog(
                               title: Text('Vuoi terminare la prova?'),
                               actions: [
-                                FlatButton(
+                                TextButton(
                                   child: Text('No'),
                                   onPressed: () {
                                     Navigator.pop(context, false);
@@ -126,52 +122,142 @@ class _WebViewContainerState extends State<WebViewContainer> {
                               ],
                             ));
                   }
-                }),
-            body: Column(
-              children: [
-                Expanded(
-                  child: WebView(
-                      key: _key,
-                      javascriptMode: JavascriptMode.unrestricted,
-                      initialUrl: _url,
-                      onWebViewCreated: (WebViewController webViewController) {
-                        _controller.complete(webViewController);
-                      },
-                      navigationDelegate: (NavigationRequest request) {
-                        if (!(request.url.contains(dominio))) {
-                          print('blocking navigation to $request}');
-                          sitoAttuale =
-                              'TENTATIVO DI ACCESSO A\n${request.url}\n\n  ';
-                          cronologia += sitoAttuale;
-                          Fluttertoast.showToast(
-                            msg: "Non è possibile uscire dal portale",
-                            toastLength: Toast.LENGTH_LONG,
-                            gravity: ToastGravity.BOTTOM,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: Colors.blueGrey,
-                            textColor: Colors.white,
-                            fontSize: 16.0,
-                          );
-                          return NavigationDecision.prevent;
-                        }
-                        print('allowing navigation to $request');
-                        return NavigationDecision.navigate;
-                      },
-                      onPageStarted: (String url) {
-                        print('Page started loading: $url');
-                        //listUrl.add(url);
-                        /*sitoAttuale = url;
-                        cronologia += sitoAttuale;*/
-                      },
-                      onPageFinished: (String url) {
-                        print('Page finished loading: $url');
-                        //listUrl.add(url);
-                        //print(listUrl);
-                        sitoAttuale = url + '\n\n  ';
-                        cronologia += sitoAttuale;
-                      }),
-                ),
-              ],
+                },),*/
+            body: Container(
+              padding: EdgeInsets.symmetric(vertical: 5),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(begin: Alignment.topCenter, colors: [
+                Colors.lightBlue[800],
+                Colors.lightBlue[700],
+                Colors.lightBlue[300],
+              ])),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "Portale",
+                          style: TextStyle(color: Colors.white, fontSize: 40),
+                        )
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: WebView(
+                              key: _key,
+                              javascriptMode: JavascriptMode.unrestricted,
+                              initialUrl: _url,
+                              onWebViewCreated:
+                                  (WebViewController webViewController) {
+                                _controller.complete(webViewController);
+                              },
+                              navigationDelegate: (NavigationRequest request) {
+                                if (!(request.url.contains(dominio))) {
+                                  print('blocking navigation to $request}');
+                                  sitoAttuale =
+                                      'TENTATIVO DI ACCESSO A\n${request.url}\n\n  ';
+                                  cronologia += sitoAttuale;
+                                  Fluttertoast.showToast(
+                                    msg: "Non è possibile uscire dal portale",
+                                    toastLength: Toast.LENGTH_LONG,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.blueGrey,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0,
+                                  );
+                                  return NavigationDecision.prevent;
+                                }
+                                print('allowing navigation to $request');
+                                return NavigationDecision.navigate;
+                              },
+                              onPageStarted: (String url) {
+                                print('Page started loading: $url');
+                                //listUrl.add(url);
+                                /*sitoAttuale = url;
+                                cronologia += sitoAttuale;*/
+                              },
+                              onPageFinished: (String url) {
+                                print('Page finished loading: $url');
+                                //listUrl.add(url);
+                                //print(listUrl);
+                                sitoAttuale = url + '\n\n  ';
+                                cronologia += sitoAttuale;
+                              }),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  GestureDetector(
+                    child: Container(
+                      height: 50,
+                      margin: EdgeInsets.symmetric(horizontal: 50),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.red[900]),
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.assignment_turned_in,
+                              color: Colors.black,
+                            ),
+                            SizedBox(width: 10),
+                            Text(
+                              "TERMINA IL TEST",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                title: Text('Vuoi terminare la prova?'),
+                                actions: [
+                                  TextButton(
+                                    child: Text('No'),
+                                    onPressed: () {
+                                      Navigator.pop(context, false);
+                                    },
+                                  ),
+                                  TextButton(
+                                    child: Text('Si'),
+                                    onPressed: () {
+                                      esci = 1;
+                                      lostFocus = DateTime.now();
+                                      print(cronologia);
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => Risultato(
+                                                  status +
+                                                      'PORTALE:\nFocus perso a $lostFocus\nTempo mantenimento focus: ${lostFocus.difference(onFocus)}\n\n  TERMINE PROVA\n\n  ',
+                                                  cronologia)));
+                                      Wakelock.disable();
+                                    },
+                                  )
+                                ],
+                              ));
+                    },
+                  )
+                ],
+              ),
             ),
           ),
           onFocusGained: () {

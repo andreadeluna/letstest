@@ -33,13 +33,13 @@ class _RisultatoState extends State<Risultato> {
         builder: (context) => AlertDialog(
               title: Text('Vuoi tornare alla Home?'),
               actions: [
-                FlatButton(
+                TextButton(
                   child: Text('No'),
                   onPressed: () {
                     Navigator.pop(context, false);
                   },
                 ),
-                FlatButton(
+                TextButton(
                   child: Text('Si'),
                   onPressed: () {
                     focusStat = 'RITORNO ALLA HOMEPAGE\n\n  ';
@@ -67,17 +67,15 @@ class _RisultatoState extends State<Risultato> {
 
     for (int i = 0; i < stato.length; i++) {
       textWidgetList.add(Container(
-        margin: EdgeInsets.all(0),
-        color: Colors.white,
-        child: Center(
-          child: Text(
-            stato[i],
-            style: TextStyle(
-                fontSize: 15,
-                color: ((stato[i] == 'PROBABILE USCITA ERRONEA\n\n')
-                    ? Colors.red
-                    : Colors.black)),
-          ),
+        alignment: Alignment.bottomLeft,
+        padding: EdgeInsets.only(left: 20),
+        child: Text(
+          stato[i],
+          style: TextStyle(
+              fontSize: 15,
+              color: ((stato[i] == 'PROBABILE USCITA ERRONEA\n\n')
+                  ? Colors.red
+                  : Colors.black)),
         ),
       ));
     }
@@ -86,31 +84,96 @@ class _RisultatoState extends State<Risultato> {
       onWillPop: _onBackPressed,
       child: MaterialApp(
         home: Scaffold(
-          backgroundColor: Colors.white,
-          appBar: AppBar(
-            title: Text('Progetto Tirocinio'),
-            backgroundColor: Colors.lightBlue,
-          ),
-          body: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                Column(
-                  children: textWidgetList,
-                ),
-                Container(
-                  margin: EdgeInsets.all(25),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: RaisedButton(
-                      color: Colors.blueGrey,
-                      child: Text(
-                        'Preview PDF',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                            color: Colors.white),
+          body: Container(
+            padding: EdgeInsets.symmetric(vertical: 30),
+            width: double.infinity,
+            decoration: BoxDecoration(
+                gradient: LinearGradient(begin: Alignment.topCenter, colors: [
+              Colors.lightBlue[800],
+              Colors.lightBlue[700],
+              Colors.lightBlue[300],
+            ])),
+            child: Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 10),
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "Riepilogo azioni",
+                          style: TextStyle(color: Colors.white, fontSize: 40),
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 20, bottom: 50),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20)),
+                        child: ListView(
+                          children: [
+                            Column(
+                              children: <Widget>[
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: textWidgetList,
+                                ),
+                              ],
+                              //textWidgetList,
+                              /*[
+                              Text(
+                                'Storico azioni',
+                                style: TextStyle(fontSize: 34, color: Colors.red),
+                              ),
+
+                            ],*/
+                            )
+                          ],
+                        ),
                       ),
-                      onPressed: () async {
+                    ),
+                  ),
+                  Center(
+                    child: GestureDetector(
+                      child: Container(
+                        height: 50,
+                        margin: EdgeInsets.symmetric(horizontal: 80),
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                color: Colors.blue[900],
+                                style: BorderStyle.solid,
+                                width: 2),
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.grey[500]),
+                        child: Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.assignment_outlined,
+                                color: Colors.black,
+                              ),
+                              SizedBox(width: 10),
+                              Text(
+                                "Anteprima PDF",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      onTap: () async {
                         writeOnPdf(stato, cronologiaweb);
                         await savePdf();
 
@@ -131,21 +194,46 @@ class _RisultatoState extends State<Risultato> {
                       },
                     ),
                   ),
-                ),
-                SizedBox(height: 15),
-                ElevatedButton.icon(
-                    onPressed: _shareContent,
-                    icon: Icon(Icons.share),
-                    label: Text('Condividi'))
-              ],
-              //textWidgetList,
-              /*[
-                Text(
-                  'Storico azioni',
-                  style: TextStyle(fontSize: 34, color: Colors.red),
-                ),
-
-              ],*/
+                  SizedBox(height: 10),
+                  Center(
+                    child: GestureDetector(
+                      child: Container(
+                        height: 50,
+                        margin: EdgeInsets.symmetric(horizontal: 80),
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                color: Colors.blue[900],
+                                style: BorderStyle.solid,
+                                width: 2),
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.grey[500]),
+                        child: Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.share,
+                                color: Colors.black,
+                              ),
+                              SizedBox(width: 10),
+                              Text(
+                                "Condividi",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        _shareContent();
+                      },
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),

@@ -175,6 +175,7 @@ class HomePage extends StatelessWidget {
             print('HOMEPAGE:');
             print('Focus acquisito a $onFocus');
             focusStat = 'HOMEPAGE:\nFocus acquisito a $onFocus\n\n  ';
+            print(focusFlag + 1);
             status += focusStat;
             Fluttertoast.showToast(
                 msg: "Accesso alla Homepage",
@@ -273,7 +274,7 @@ class _FloatingButtonState extends State<FloatingButton> {
                 context: context,
                 builder: (context) => Container(
                   margin: EdgeInsets.only(left: 5, right: 5),
-                  height: 300,
+                  height: 360,
                   decoration: BoxDecoration(
                     color: Colors.grey[200],
                     borderRadius: BorderRadius.only(
