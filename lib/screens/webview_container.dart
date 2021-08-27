@@ -182,15 +182,15 @@ class _WebViewContainerState extends State<WebViewContainer> {
                               onPageStarted: (String url) {
                                 print('Page started loading: $url');
                                 //listUrl.add(url);
-                                /*sitoAttuale = url;
-                                cronologia += sitoAttuale;*/
+                                sitoAttuale = url + '\n\n  ';
+                                cronologia += sitoAttuale;
                               },
                               onPageFinished: (String url) {
                                 print('Page finished loading: $url');
                                 //listUrl.add(url);
                                 //print(listUrl);
-                                sitoAttuale = url + '\n\n  ';
-                                cronologia += sitoAttuale;
+                                //sitoAttuale = 'SITO ' + url + '\n\n  ';
+                                //cronologia += sitoAttuale;
                               }),
                         ),
                       ],
@@ -289,7 +289,7 @@ class _WebViewContainerState extends State<WebViewContainer> {
                   'PORTALE:\nFocus perso a $lostFocus\nTempo mantenimento focus: ${lostFocus.difference(onFocus)}\n\n  ';
               status += focusStat +
                   ((esci == 0)
-                      ? 'PROBABILE USCITA ERRONEA\n\n  '
+                      ? 'RILEVATA USCITA\n\n  '
                       : 'TERMINE PROVA\n\n  ');
               print(status);
               /*Navigator.push(

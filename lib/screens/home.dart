@@ -28,182 +28,160 @@ class HomePage extends StatelessWidget {
   @override
   String focusStat = '';
   Widget build(BuildContext context) {
+    Fluttertoast.showToast(
+        msg: "Accesso alla Homepage",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.blueGrey,
+        textColor: Colors.white,
+        fontSize: 16.0);
+    focusStat = 'ACCESSO ALLA HOMEPAGE\n\n  ';
+    status += focusStat;
     SystemChrome.setEnabledSystemUIOverlays([]);
     return MaterialApp(
       home: Center(
-        child: FocusDetector(
-          key: _resumeDetectorKey,
-          child: Scaffold(
-            //resizeToAvoidBottomInset: false,
-            //backgroundColor: Colors.lightBlue,
-            floatingActionButton: FloatingButton(status, cronologia),
-            /*appBar: AppBar(
-              title: Text(
-                'Progetto Tirocinio',
-                style: TextStyle(color: Colors.white, fontSize: 24.0),
-              ),
-              backgroundColor: Colors.lightBlue,
-            ),*/
-            body: SafeArea(
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 30),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    gradient:
-                        LinearGradient(begin: Alignment.topCenter, colors: [
-                  Colors.lightBlue[800],
-                  Colors.lightBlue[700],
-                  Colors.lightBlue[300],
-                ])),
-                child: Column(
-                  //mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    SizedBox(height: 10),
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "Scelta portale",
-                            style: TextStyle(color: Colors.white, fontSize: 40),
-                          )
-                        ],
-                      ),
+        child: Scaffold(
+          //resizeToAvoidBottomInset: false,
+          //backgroundColor: Colors.lightBlue,
+          floatingActionButton: FloatingButton(status, cronologia),
+          /*appBar: AppBar(
+            title: Text(
+              'Progetto Tirocinio',
+              style: TextStyle(color: Colors.white, fontSize: 24.0),
+            ),
+            backgroundColor: Colors.lightBlue,
+          ),*/
+          body: SafeArea(
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 30),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  gradient:
+                      LinearGradient(begin: Alignment.topCenter, colors: [
+                Colors.lightBlue[800],
+                Colors.lightBlue[700],
+                Colors.lightBlue[300],
+              ])),
+              child: Column(
+                //mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SizedBox(height: 10),
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "Scelta portale",
+                          style: TextStyle(color: Colors.white, fontSize: 40),
+                        )
+                      ],
                     ),
-                    SizedBox(height: 10),
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.all(5),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(
-                                color: Colors.blue[900],
-                                style: BorderStyle.solid,
-                                width: 2),
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(30),
-                                topRight: Radius.circular(30),
-                                bottomLeft: Radius.circular(30),
-                                bottomRight: Radius.circular(30)),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: GestureDetector(
-                              onTap: () {
-                                _handleURLButtonPress(
-                                    context, _linktolc, dominiotolc);
-                                Wakelock.enable();
-                              },
-                              child: Image.asset('images/tolc.png'),
-                            ),
+                  ),
+                  SizedBox(height: 10),
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.all(5),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(
+                              color: Colors.blue[900],
+                              style: BorderStyle.solid,
+                              width: 2),
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(30),
+                              topRight: Radius.circular(30),
+                              bottomLeft: Radius.circular(30),
+                              bottomRight: Radius.circular(30)),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              focusStat = 'SELEZIONATO PORTALE TOLC\n\n  ';
+                              status += focusStat;
+                              _handleURLButtonPress(
+                                  context, _linktolc, dominiotolc);
+                              Wakelock.enable();
+                            },
+                            child: Image.asset('images/tolc.png'),
                           ),
                         ),
                       ),
                     ),
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.all(5),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(
-                                color: Colors.blue[900],
-                                style: BorderStyle.solid,
-                                width: 2),
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(30),
-                                topRight: Radius.circular(30),
-                                bottomLeft: Radius.circular(30),
-                                bottomRight: Radius.circular(30)),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: GestureDetector(
-                              onTap: () {
-                                _handleURLButtonPress(
-                                    context, _linkinvalsi, dominioinvalsi);
-                                Wakelock.enable();
-                              },
-                              child: Image.asset('images/invalsi.png'),
-                            ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.all(5),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(
+                              color: Colors.blue[900],
+                              style: BorderStyle.solid,
+                              width: 2),
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(30),
+                              topRight: Radius.circular(30),
+                              bottomLeft: Radius.circular(30),
+                              bottomRight: Radius.circular(30)),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              focusStat = 'SELEZIONATO PORTALE INVALSI\n\n  ';
+                              status += focusStat;
+                              _handleURLButtonPress(
+                                  context, _linkinvalsi, dominioinvalsi);
+                              Wakelock.enable();
+                            },
+                            child: Image.asset('images/invalsi.png'),
                           ),
                         ),
                       ),
                     ),
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.all(5),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(
-                                color: Colors.blue[900],
-                                style: BorderStyle.solid,
-                                width: 2),
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(30),
-                                topRight: Radius.circular(30),
-                                bottomLeft: Radius.circular(30),
-                                bottomRight: Radius.circular(30)),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: GestureDetector(
-                              onTap: () {
-                                _handleURLButtonPress(
-                                    context, _linkblended, dominioblended);
-                                Wakelock.enable();
-                              },
-                              child: Image.asset('images/uniurb.png'),
-                            ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.all(5),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(
+                              color: Colors.blue[900],
+                              style: BorderStyle.solid,
+                              width: 2),
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(30),
+                              topRight: Radius.circular(30),
+                              bottomLeft: Radius.circular(30),
+                              bottomRight: Radius.circular(30)),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              focusStat = 'SELEZIONATO PORTALE BLENDED\n\n  ';
+                              status += focusStat;
+                              _handleURLButtonPress(
+                                  context, _linkblended, dominioblended);
+                              Wakelock.enable();
+                            },
+                            child: Image.asset('images/uniurb.png'),
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(height: 40),
-                  ],
-                ),
+                  ),
+                  SizedBox(height: 40),
+                ],
               ),
             ),
           ),
-          onFocusGained: () {
-            focusFlag = 0;
-            onFocus = DateTime.now();
-            if(onFocus.difference(lostFocus) > Duration(seconds: 1)){
-
-              print('HOMEPAGE:');
-              print('Focus acquisito a $onFocus');
-              focusStat = 'HOMEPAGE:\nFocus acquisito a $onFocus\n\n  ';
-              print(focusFlag + 1);
-              status += focusStat;
-              Fluttertoast.showToast(
-                  msg: "Accesso alla Homepage",
-                  toastLength: Toast.LENGTH_LONG,
-                  gravity: ToastGravity.BOTTOM,
-                  timeInSecForIosWeb: 1,
-                  backgroundColor: Colors.blueGrey,
-                  textColor: Colors.white,
-                  fontSize: 16.0);
-
-            }
-
-          },
-          onFocusLost: () {
-            focusFlag += 1;
-            lostFocus = DateTime.now();
-            print('HOMEPAGE:');
-            print('Focus perso a $lostFocus');
-            print('Tempo mantenimento focus:');
-            print(lostFocus.difference(onFocus));
-            if (focusFlag == 1) {
-              focusStat =
-                  'HOMEPAGE:\nFocus perso a $lostFocus\nTempo mantenimento focus: ${lostFocus.difference(onFocus)}\n\n  ';
-              status += focusStat;
-            }
-          },
         ),
       ),
     );
@@ -211,9 +189,7 @@ class HomePage extends StatelessWidget {
 
   void _handleURLButtonPress(BuildContext context, String url, String dominio) {
     lostFocus = DateTime.now();
-    focusStat =
-        'HOMEPAGE:\nFocus perso a $lostFocus\nTempo mantenimento focus: ${lostFocus.difference(onFocus)}\n\n  '
-        'ACCESSO AL PORTALE\n\n  ';
+    focusStat = 'ACCESSO AL PORTALE\n\n  ';
     status += focusStat;
     Navigator.push(
         context,
@@ -241,7 +217,9 @@ class _FloatingButtonState extends State<FloatingButton> {
   String cronologia;
   bool _show = true;
   String _linkForm;
-  final dominioForm = 'docs.google.com/forms';
+  int focusFlag;
+  String dominioForm = "docs.google.com/forms";
+  DateTime onFocus = new DateTime.now(), lostFocus = new DateTime.now();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -263,6 +241,7 @@ class _FloatingButtonState extends State<FloatingButton> {
 
   @override
   Widget build(BuildContext context) {
+    String focusStat = '';
     return _show
         ? FloatingActionButton.extended(
             label: Text(
@@ -378,10 +357,35 @@ class _FloatingButtonState extends State<FloatingButton> {
                                     if (!_formKey.currentState.validate()) {
                                       return;
                                     }
+
                                     _formKey.currentState.save();
-                                    HomePage(status, cronologia)
-                                        ._handleURLButtonPress(
-                                            context, _linkForm, dominioForm);
+
+                                    print('LINK FORM: ' + _linkForm);
+
+                                    if((_linkForm.contains(dominioForm))){
+
+                                      focusStat = 'SELEZIONATO GOOGLE FORM\n\n  ';
+                                      status += focusStat;
+
+                                      HomePage(status, cronologia)
+                                          ._handleURLButtonPress(
+                                          context, _linkForm, dominioForm);
+
+                                    }
+                                    else{
+
+                                      Fluttertoast.showToast(
+                                          msg: "Link errato: Inserire Form Google",
+                                          toastLength: Toast.LENGTH_LONG,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 1,
+                                          backgroundColor: Colors.blueGrey,
+                                          textColor: Colors.white,
+                                          fontSize: 16.0);
+
+                                    }
+
+
                                   },
                                   child: Container(
                                     height: 50,

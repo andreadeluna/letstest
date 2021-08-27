@@ -44,6 +44,8 @@ class _RisultatoState extends State<Risultato> {
                   onPressed: () {
                     focusStat = 'RITORNO ALLA HOMEPAGE\n\n  ';
                     status += focusStat;
+                    cronologiaStat = 'RITORNO ALLA HOMEPAGE\n\n  ';
+                    cronologia += cronologiaStat;
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -60,6 +62,7 @@ class _RisultatoState extends State<Risultato> {
 
   @override
   String focusStat = '';
+  String cronologiaStat = '';
 
   Widget build(BuildContext context) {
     List<String> stato = status.split('  ');
@@ -73,11 +76,12 @@ class _RisultatoState extends State<Risultato> {
           stato[i],
           style: TextStyle(
               fontSize: 15,
-              color: ((stato[i] == 'PROBABILE USCITA ERRONEA\n\n')
+              color: ((stato[i] == 'RILEVATA USCITA\n\n')
                   ? Colors.red
                   : Colors.black)),
         ),
-      ));
+      )
+      );
     }
 
     return WillPopScope(
