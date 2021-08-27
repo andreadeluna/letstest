@@ -60,17 +60,46 @@ class _PdfPreviewScreenState extends State<PdfPreviewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      /*appBar: AppBar(
         title: Text("Risultato"),
-      ),
-      body: _loading
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : PDFViewer(
-              document: _doc,
-              showPicker: false,
+      ),*/
+      body: Container(
+        decoration: BoxDecoration(
+            gradient:
+            LinearGradient(begin: Alignment.topCenter, colors: [
+              Colors.lightBlue[800],
+              Colors.lightBlue[700],
+              Colors.lightBlue[300],
+            ])),
+        padding: EdgeInsets.only(top: 50),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    "Anteprima PDF",
+                    style: TextStyle(color: Colors.white, fontSize: 40),
+                  )
+                ],
+              ),
             ),
+            _loading
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Expanded(
+                  child: PDFViewer(
+                      document: _doc,
+                      showPicker: false,
+                    ),
+                ),
+          ],
+        ),
+      ),
     );
   }
 }
