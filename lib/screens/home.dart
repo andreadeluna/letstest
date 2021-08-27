@@ -172,19 +172,24 @@ class HomePage extends StatelessWidget {
           onFocusGained: () {
             focusFlag = 0;
             onFocus = DateTime.now();
-            print('HOMEPAGE:');
-            print('Focus acquisito a $onFocus');
-            focusStat = 'HOMEPAGE:\nFocus acquisito a $onFocus\n\n  ';
-            print(focusFlag + 1);
-            status += focusStat;
-            Fluttertoast.showToast(
-                msg: "Accesso alla Homepage",
-                toastLength: Toast.LENGTH_LONG,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIosWeb: 1,
-                backgroundColor: Colors.blueGrey,
-                textColor: Colors.white,
-                fontSize: 16.0);
+            if(onFocus.difference(lostFocus) > Duration(seconds: 1)){
+
+              print('HOMEPAGE:');
+              print('Focus acquisito a $onFocus');
+              focusStat = 'HOMEPAGE:\nFocus acquisito a $onFocus\n\n  ';
+              print(focusFlag + 1);
+              status += focusStat;
+              Fluttertoast.showToast(
+                  msg: "Accesso alla Homepage",
+                  toastLength: Toast.LENGTH_LONG,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: Colors.blueGrey,
+                  textColor: Colors.white,
+                  fontSize: 16.0);
+
+            }
+
           },
           onFocusLost: () {
             focusFlag += 1;
