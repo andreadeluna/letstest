@@ -1,11 +1,11 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:focus_detector/focus_detector.dart';
 import 'package:wakelock/wakelock.dart';
 import 'risultato.dart';
+
 
 class WebViewContainer extends StatefulWidget {
   final url;
@@ -39,7 +39,6 @@ class _WebViewContainerState extends State<WebViewContainer> {
     return showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          //title: Text('Vuoi tornare alla Home?'),
           backgroundColor: Colors.grey[50],
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
@@ -93,41 +92,10 @@ class _WebViewContainerState extends State<WebViewContainer> {
                                 'PORTALE:\nFocus perso a $lostFocus\nTempo mantenimento focus: ${lostFocus.difference(onFocus)}\n\n  TERMINE PROVA\n\n  ',
                             cronologia)));
                 Wakelock.disable();
-
-
-                /*Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            Risultato(status, cronologia)));
-                Wakelock.disable();*/
               },
             )
           ],
         )
-
-      /*AlertDialog(
-              title: Text('Vuoi realmente uscire?'),
-              actions: [
-                FlatButton(
-                  child: Text('No'),
-                  onPressed: () {
-                    Navigator.pop(context, false);
-                  },
-                ),
-                FlatButton(
-                  child: Text('Si'),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                Risultato(status, cronologia)));
-                    Wakelock.disable();
-                  },
-                )
-              ],
-            )*/
     );
   }
 
@@ -145,53 +113,6 @@ class _WebViewContainerState extends State<WebViewContainer> {
           key: _resumeDetectorKey,
           child: Scaffold(
             resizeToAvoidBottomInset: false,
-            /*bottomNavigationBar: BottomNavigationBar(
-                currentIndex: _currentIndex,
-                items: [
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.assignment),
-                    title: Text('Test'),
-                    backgroundColor: Colors.lightBlueAccent,
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.assignment_turned_in),
-                    title: Text('Fine'),
-                    backgroundColor: Colors.lightBlueAccent,
-                  ),
-                ],
-                onTap: (index) {
-                  if (index == 1) {
-                    showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                              title: Text('Vuoi terminare la prova?'),
-                              actions: [
-                                TextButton(
-                                  child: Text('No'),
-                                  onPressed: () {
-                                    Navigator.pop(context, false);
-                                  },
-                                ),
-                                FlatButton(
-                                  child: Text('Si'),
-                                  onPressed: () {
-                                    esci = 1;
-                                    lostFocus = DateTime.now();
-                                    print(cronologia);
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => Risultato(
-                                                status +
-                                                    'PORTALE:\nFocus perso a $lostFocus\nTempo mantenimento focus: ${lostFocus.difference(onFocus)}\n\n  TERMINE PROVA\n\n  ',
-                                                cronologia)));
-                                    Wakelock.disable();
-                                  },
-                                )
-                              ],
-                            ));
-                  }
-                },),*/
             body: Container(
               padding: EdgeInsets.symmetric(vertical: 5),
               width: double.infinity,
@@ -297,7 +218,6 @@ class _WebViewContainerState extends State<WebViewContainer> {
                       showDialog(
                           context: context,
                           builder: (context) =>
-
                               AlertDialog(
                                 //title: Text('Vuoi tornare alla Home?'),
                                 backgroundColor: Colors.grey[50],
@@ -356,33 +276,6 @@ class _WebViewContainerState extends State<WebViewContainer> {
                                   )
                                 ],
                               )
-                        /*AlertDialog(
-                                title: Text('Vuoi terminare la prova?'),
-                                actions: [
-                                  TextButton(
-                                    child: Text('No'),
-                                    onPressed: () {
-                                      Navigator.pop(context, false);
-                                    },
-                                  ),
-                                  TextButton(
-                                    child: Text('Si'),
-                                    onPressed: () {
-                                      esci = 1;
-                                      lostFocus = DateTime.now();
-                                      print(cronologia);
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => Risultato(
-                                                  status +
-                                                      'PORTALE:\nFocus perso a $lostFocus\nTempo mantenimento focus: ${lostFocus.difference(onFocus)}\n\n  TERMINE PROVA\n\n  ',
-                                                  cronologia)));
-                                      Wakelock.disable();
-                                    },
-                                  )
-                                ],
-                              )*/
                       );
                     },
                   )
@@ -422,13 +315,6 @@ class _WebViewContainerState extends State<WebViewContainer> {
                       ? 'RILEVATA USCITA\n\n  '
                       : 'TERMINE PROVA\n\n  ');
               print(status);
-              /*Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => Risultato(status +
-                          ((esci == 0)
-                              ? 'PROBABILE USCITA ERRONEA\n\nTERMINE PROVA\n\n'
-                              : 'TERMINE PROVA\n\n'))));*/
             }
           },
         ),

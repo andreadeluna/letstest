@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:focus_detector/focus_detector.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:progettotirocinio/screens/bottomsheet.dart';
 import 'webview_container.dart';
 import 'package:wakelock/wakelock.dart';
 import 'package:flutter/services.dart';
@@ -13,7 +11,6 @@ class HomePage extends StatelessWidget {
   String status;
   String cronologia;
   int focusFlag;
-  final _resumeDetectorKey = UniqueKey();
   DateTime onFocus = new DateTime.now(), lostFocus = new DateTime.now();
   final _linktolc =
       'https://www.cisiaonline.it/area-tematica-tolc-cisia/home-tolc-generale/';
@@ -44,16 +41,7 @@ class HomePage extends StatelessWidget {
       child: MaterialApp(
         home: Center(
           child: Scaffold(
-            //resizeToAvoidBottomInset: false,
-            //backgroundColor: Colors.lightBlue,
             floatingActionButton: FloatingButton(status, cronologia),
-            /*appBar: AppBar(
-              title: Text(
-                'Progetto Tirocinio',
-                style: TextStyle(color: Colors.white, fontSize: 24.0),
-              ),
-              backgroundColor: Colors.lightBlue,
-            ),*/
             body: SafeArea(
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 30),
@@ -66,7 +54,6 @@ class HomePage extends StatelessWidget {
                   Colors.lightBlue[300],
                 ])),
                 child: Column(
-                  //mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     SizedBox(height: 10),

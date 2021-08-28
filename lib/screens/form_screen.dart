@@ -29,7 +29,6 @@ class FormScreenState extends State<FormScreen> {
   Widget _buildName() {
     return TextFormField(
       decoration: InputDecoration(labelText: 'Nome e cognome'),
-      //maxLength: 10,
       validator: (String value) {
         if (value.isEmpty) {
           return 'Il nome è richiesto';

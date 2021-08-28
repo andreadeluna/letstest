@@ -5,9 +5,9 @@ import 'package:wakelock/wakelock.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-
 import 'home.dart';
 import 'pdf_preview_screen.dart';
+
 
 class Risultato extends StatefulWidget {
   String status;
@@ -31,7 +31,6 @@ class _RisultatoState extends State<Risultato> {
     return showDialog(
         context: context,
         builder: (context) => AlertDialog(
-              //title: Text('Vuoi tornare alla Home?'),
               backgroundColor: Colors.grey[50],
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
@@ -163,13 +162,6 @@ class _RisultatoState extends State<Risultato> {
                                 ),
                               ],
                               //textWidgetList,
-                              /*[
-                              Text(
-                                'Storico azioni',
-                                style: TextStyle(fontSize: 34, color: Colors.red),
-                              ),
-
-                            ],*/
                             )
                           ],
                         ),
@@ -332,33 +324,10 @@ class _RisultatoState extends State<Risultato> {
                   children: <pw.Widget>[
                     pw.Text('Riepilogo azioni', textScaleFactor: 2),
                   ])),
-          // pw.Header(level: 1, text: 'Dati utente'),
-          // //for (int i = 2; i < 7; i++)
-          // pw.Paragraph(text: stato[1]),
-          //
-          // pw.Header(level: 1, text: 'Azioni compiute'),
-          // for (int i = 3; i < stato.length; i++) pw.Paragraph(text: stato[i]),
 
           pw.Header(level: 1, text: 'Dati navigazione'),
           for (int i = 0; i < cronologiaweb.length; i++)
             pw.Paragraph(text: cronologiaweb[i]),
-          // Write All the paragraph in one line.
-          // For clear understanding
-          // here there are line breaks.
-          // pw.Paragraph(text: prova),
-          // pw.,
-          // pw.Paragraph(text: "$status"),
-          // pw.Header(level: 1, text: 'Titolo paragrafo (Cronologia)'),
-          // pw.Paragraph(text: "$cronologia"),
-          // pw.Paragraph(text: "Paragrafo 3"),
-          // pw.Padding(padding: const pw.EdgeInsets.all(10)),
-          /*pw.Table.fromTextArray(context: context, data: const <List<String>>[
-            <String>['Colonna 1', 'Colonna 2'],
-            <String>['1', '1'],
-            <String>['2', '2'],
-            <String>['3', '3'],
-            <String>['4', '4'],
-          ]),*/
         ];
       },
     ));

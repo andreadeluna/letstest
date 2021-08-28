@@ -1,8 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:progettotirocinio/screens/form_screen.dart';
-import 'screens/home.dart';
+
 
 class App extends StatelessWidget {
   App(this.status, this.cronologia);
@@ -23,7 +22,6 @@ class App extends StatelessWidget {
           headline6: TextStyle(color: Colors.red),
         ),
       ),
-      //home: FormScreen(status, cronologia),
       home: SplashScreen(status, cronologia),
     );
   }
@@ -38,8 +36,6 @@ class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState(status, cronologia);
 }
-
-// *** LINK VIDEO: https://www.youtube.com/watch?v=PQB1E2JLZJA ***
 
 class _SplashScreenState extends State<SplashScreen> {
   String status;
@@ -82,17 +78,3 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 }
-
-/*class  extends StatefulWidget {
-  const ({Key? key}) : super(key: key);
-
-  @override
-  _State createState() => _State();
-}
-
-class _State extends State<> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}*/
