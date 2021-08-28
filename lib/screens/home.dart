@@ -39,146 +39,149 @@ class HomePage extends StatelessWidget {
     focusStat = 'ACCESSO ALLA HOMEPAGE\n\n  ';
     status += focusStat;
     SystemChrome.setEnabledSystemUIOverlays([]);
-    return MaterialApp(
-      home: Center(
-        child: Scaffold(
-          //resizeToAvoidBottomInset: false,
-          //backgroundColor: Colors.lightBlue,
-          floatingActionButton: FloatingButton(status, cronologia),
-          /*appBar: AppBar(
-            title: Text(
-              'Progetto Tirocinio',
-              style: TextStyle(color: Colors.white, fontSize: 24.0),
-            ),
-            backgroundColor: Colors.lightBlue,
-          ),*/
-          body: SafeArea(
-            child: Container(
-              padding: EdgeInsets.symmetric(vertical: 30),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  gradient:
-                      LinearGradient(begin: Alignment.topCenter, colors: [
-                Colors.lightBlue[800],
-                Colors.lightBlue[700],
-                Colors.lightBlue[300],
-              ])),
-              child: Column(
-                //mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  SizedBox(height: 10),
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          "Scelta portale",
-                          style: TextStyle(color: Colors.white, fontSize: 40),
-                        )
-                      ],
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: MaterialApp(
+        home: Center(
+          child: Scaffold(
+            //resizeToAvoidBottomInset: false,
+            //backgroundColor: Colors.lightBlue,
+            floatingActionButton: FloatingButton(status, cronologia),
+            /*appBar: AppBar(
+              title: Text(
+                'Progetto Tirocinio',
+                style: TextStyle(color: Colors.white, fontSize: 24.0),
+              ),
+              backgroundColor: Colors.lightBlue,
+            ),*/
+            body: SafeArea(
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 30),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    gradient:
+                        LinearGradient(begin: Alignment.topCenter, colors: [
+                  Colors.lightBlue[800],
+                  Colors.lightBlue[700],
+                  Colors.lightBlue[300],
+                ])),
+                child: Column(
+                  //mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(height: 10),
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            "Scelta portale",
+                            style: TextStyle(color: Colors.white, fontSize: 40),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 10),
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(
-                              color: Colors.blue[900],
-                              style: BorderStyle.solid,
-                              width: 2),
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(30),
-                              topRight: Radius.circular(30),
-                              bottomLeft: Radius.circular(30),
-                              bottomRight: Radius.circular(30)),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              focusStat = 'SELEZIONATO PORTALE TOLC\n\n  ';
-                              status += focusStat;
-                              Wakelock.enable();
-                              _handleURLButtonPress(
-                                  context, _linktolc, dominiotolc);
-                            },
-                            child: Image.asset('images/tolc.png'),
+                    SizedBox(height: 10),
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.all(5),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(
+                                color: Colors.blue[900],
+                                style: BorderStyle.solid,
+                                width: 2),
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(30),
+                                topRight: Radius.circular(30),
+                                bottomLeft: Radius.circular(30),
+                                bottomRight: Radius.circular(30)),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                focusStat = 'SELEZIONATO PORTALE TOLC\n\n  ';
+                                status += focusStat;
+                                Wakelock.enable();
+                                _handleURLButtonPress(
+                                    context, _linktolc, dominiotolc);
+                              },
+                              child: Image.asset('images/tolc.png'),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(
-                              color: Colors.blue[900],
-                              style: BorderStyle.solid,
-                              width: 2),
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(30),
-                              topRight: Radius.circular(30),
-                              bottomLeft: Radius.circular(30),
-                              bottomRight: Radius.circular(30)),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              focusStat = 'SELEZIONATO PORTALE INVALSI\n\n  ';
-                              status += focusStat;
-                              Wakelock.enable();
-                              _handleURLButtonPress(
-                                  context, _linkinvalsi, dominioinvalsi);
-                            },
-                            child: Image.asset('images/invalsi.png'),
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.all(5),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(
+                                color: Colors.blue[900],
+                                style: BorderStyle.solid,
+                                width: 2),
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(30),
+                                topRight: Radius.circular(30),
+                                bottomLeft: Radius.circular(30),
+                                bottomRight: Radius.circular(30)),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                focusStat = 'SELEZIONATO PORTALE INVALSI\n\n  ';
+                                status += focusStat;
+                                Wakelock.enable();
+                                _handleURLButtonPress(
+                                    context, _linkinvalsi, dominioinvalsi);
+                              },
+                              child: Image.asset('images/invalsi.png'),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(
-                              color: Colors.blue[900],
-                              style: BorderStyle.solid,
-                              width: 2),
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(30),
-                              topRight: Radius.circular(30),
-                              bottomLeft: Radius.circular(30),
-                              bottomRight: Radius.circular(30)),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              focusStat = 'SELEZIONATO PORTALE BLENDED\n\n  ';
-                              status += focusStat;
-                              Wakelock.enable();
-                              _handleURLButtonPress(
-                                  context, _linkblended, dominioblended);
-                            },
-                            child: Image.asset('images/uniurb.png'),
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.all(5),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(
+                                color: Colors.blue[900],
+                                style: BorderStyle.solid,
+                                width: 2),
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(30),
+                                topRight: Radius.circular(30),
+                                bottomLeft: Radius.circular(30),
+                                bottomRight: Radius.circular(30)),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                focusStat = 'SELEZIONATO PORTALE BLENDED\n\n  ';
+                                status += focusStat;
+                                Wakelock.enable();
+                                _handleURLButtonPress(
+                                    context, _linkblended, dominioblended);
+                              },
+                              child: Image.asset('images/uniurb.png'),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 40),
-                ],
+                    SizedBox(height: 40),
+                  ],
+                ),
               ),
             ),
           ),
