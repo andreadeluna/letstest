@@ -103,9 +103,9 @@ class HomePage extends StatelessWidget {
                             onTap: () {
                               focusStat = 'SELEZIONATO PORTALE TOLC\n\n  ';
                               status += focusStat;
+                              Wakelock.enable();
                               _handleURLButtonPress(
                                   context, _linktolc, dominiotolc);
-                              Wakelock.enable();
                             },
                             child: Image.asset('images/tolc.png'),
                           ),
@@ -135,9 +135,9 @@ class HomePage extends StatelessWidget {
                             onTap: () {
                               focusStat = 'SELEZIONATO PORTALE INVALSI\n\n  ';
                               status += focusStat;
+                              Wakelock.enable();
                               _handleURLButtonPress(
                                   context, _linkinvalsi, dominioinvalsi);
-                              Wakelock.enable();
                             },
                             child: Image.asset('images/invalsi.png'),
                           ),
@@ -167,9 +167,9 @@ class HomePage extends StatelessWidget {
                             onTap: () {
                               focusStat = 'SELEZIONATO PORTALE BLENDED\n\n  ';
                               status += focusStat;
+                              Wakelock.enable();
                               _handleURLButtonPress(
                                   context, _linkblended, dominioblended);
-                              Wakelock.enable();
                             },
                             child: Image.asset('images/uniurb.png'),
                           ),
@@ -366,7 +366,7 @@ class _FloatingButtonState extends State<FloatingButton> {
 
                                       focusStat = 'SELEZIONATO GOOGLE FORM\n\n  ';
                                       status += focusStat;
-
+                                      Wakelock.enable();
                                       HomePage(status, cronologia)
                                           ._handleURLButtonPress(
                                           context, _linkForm, dominioForm);

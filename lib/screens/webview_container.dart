@@ -39,6 +39,74 @@ class _WebViewContainerState extends State<WebViewContainer> {
     return showDialog(
         context: context,
         builder: (context) => AlertDialog(
+          //title: Text('Vuoi tornare alla Home?'),
+          backgroundColor: Colors.grey[50],
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          content: Stack(
+            overflow: Overflow.visible,
+            alignment: Alignment.topCenter,
+            children: [
+              Container(
+                height: 150,
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(10, 70, 10, 10),
+                  child: Column(
+                    children: [
+                      Text("Attenzione", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),),
+                      SizedBox(height: 5),
+                      Text("Vuoi realmente uscire?", style: TextStyle(fontSize: 18),),
+                    ],
+                  ),
+                ),
+              ),
+              Positioned(
+                top: -60,
+                child: CircleAvatar(
+                  backgroundColor: Colors.red,
+                  radius: 60,
+                  child: Icon(Icons.warning, color: Colors.white, size: 50,),
+                ),
+              )
+            ],
+          ),
+          actions: [
+            TextButton(
+              child: Text('No', style: TextStyle(fontSize: 20)),
+              onPressed: () {
+                Navigator.pop(context, false);
+              },
+            ),
+            TextButton(
+              child: Text('Si', style: TextStyle(fontSize: 20)),
+              onPressed: () {
+
+                esci = 1;
+                lostFocus = DateTime.now();
+                print(cronologia);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Risultato(
+                            status +
+                                'PORTALE:\nFocus perso a $lostFocus\nTempo mantenimento focus: ${lostFocus.difference(onFocus)}\n\n  TERMINE PROVA\n\n  ',
+                            cronologia)));
+                Wakelock.disable();
+
+
+                /*Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            Risultato(status, cronologia)));
+                Wakelock.disable();*/
+              },
+            )
+          ],
+        )
+
+      /*AlertDialog(
               title: Text('Vuoi realmente uscire?'),
               actions: [
                 FlatButton(
@@ -59,7 +127,8 @@ class _WebViewContainerState extends State<WebViewContainer> {
                   },
                 )
               ],
-            ));
+            )*/
+    );
   }
 
   @override
@@ -227,7 +296,67 @@ class _WebViewContainerState extends State<WebViewContainer> {
                     onTap: () {
                       showDialog(
                           context: context,
-                          builder: (context) => AlertDialog(
+                          builder: (context) =>
+
+                              AlertDialog(
+                                //title: Text('Vuoi tornare alla Home?'),
+                                backgroundColor: Colors.grey[50],
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                content: Stack(
+                                  overflow: Overflow.visible,
+                                  alignment: Alignment.topCenter,
+                                  children: [
+                                    Container(
+                                      height: 150,
+                                      child: Padding(
+                                        padding: EdgeInsets.fromLTRB(10, 70, 10, 10),
+                                        child: Column(
+                                          children: [
+                                            Text("Attenzione", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),),
+                                            SizedBox(height: 5),
+                                            Text("Vuoi terminare la prova?", style: TextStyle(fontSize: 18),),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      top: -60,
+                                      child: CircleAvatar(
+                                        backgroundColor: Colors.red,
+                                        radius: 60,
+                                        child: Icon(Icons.assignment_turned_in, color: Colors.white, size: 50,),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                actions: [
+                                  TextButton(
+                                    child: Text('No', style: TextStyle(fontSize: 20)),
+                                    onPressed: () {
+                                      Navigator.pop(context, false);
+                                    },
+                                  ),
+                                  TextButton(
+                                    child: Text('Si', style: TextStyle(fontSize: 20)),
+                                    onPressed: () {
+                                      esci = 1;
+                                      lostFocus = DateTime.now();
+                                      print(cronologia);
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => Risultato(
+                                                  status +
+                                                      'PORTALE:\nFocus perso a $lostFocus\nTempo mantenimento focus: ${lostFocus.difference(onFocus)}\n\n  TERMINE PROVA\n\n  ',
+                                                  cronologia)));
+                                      Wakelock.disable();
+                                    },
+                                  )
+                                ],
+                              )
+                        /*AlertDialog(
                                 title: Text('Vuoi terminare la prova?'),
                                 actions: [
                                   TextButton(
@@ -253,7 +382,8 @@ class _WebViewContainerState extends State<WebViewContainer> {
                                     },
                                   )
                                 ],
-                              ));
+                              )*/
+                      );
                     },
                   )
                 ],
