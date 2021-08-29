@@ -4,50 +4,52 @@ import 'package:flutter_plugin_pdf_viewer/flutter_plugin_pdf_viewer.dart';
 import 'package:path_provider/path_provider.dart';
 
 // Schermata di visualizzazione dell'anteprima del documento PDF
-class PdfPreviewScreen extends StatefulWidget {
-
+class AnteprimaDocumento extends StatefulWidget {
   // *** Dichiarazione variabili ***
   final String fullPath;
 
-  PdfPreviewScreen(this.fullPath);
+  AnteprimaDocumento(this.fullPath);
 
   // Definizione schermata di anteprima
   @override
-  _PdfPreviewScreenState createState() => _PdfPreviewScreenState(fullPath);
+  _AnteprimaDocumentoState createState() => _AnteprimaDocumentoState(fullPath);
 }
 
-
 // Implementazione della schermata di anteprima
-class _PdfPreviewScreenState extends State<PdfPreviewScreen> {
-
+class _AnteprimaDocumentoState extends State<AnteprimaDocumento> {
   // *** Dichiarazione variabili ***
-  final String fullPath;
-  PDFDocument _doc;
-  bool _loading = false;
+  final String pathDocumento;
+  PDFDocument documento;
+  bool caricamento = false;
 
-  _PdfPreviewScreenState(this.fullPath);
+  _AnteprimaDocumentoState(this.pathDocumento);
 
   @override
   void initState() {
     super.initState();
-    _initPdf();
+    _initPDF();
   }
 
-  _initPdf() async {
-    Directory documentDirectory = await getApplicationDocumentsDirectory();
-    String documentPath = documentDirectory.path;
-    File file = File("$documentPath/risultatoprova.pdf");
+  _initPDF() async {
+    Directory directoryDocumento = await getApplicationDocumentsDirectory();
+    String pathDocumento = directoryDocumento.path;
+    File file = File("$pathDocumento/risultatoprova.pdf");
 
-    setState(() {
-      _loading = true;
-    });
+    setState(
+      () {
+        caricamento = true;
+      },
+    );
+
     final doc = await PDFDocument.fromFile(file);
-    setState(() {
-      _doc = doc;
-      _loading = false;
-    });
-  }
 
+    setState(
+      () {
+        documento = doc;
+        caricamento = false;
+      },
+    );
+  }
 
   // Widget di costruzione della schermata di anteprima del documento
   @override
@@ -55,12 +57,15 @@ class _PdfPreviewScreenState extends State<PdfPreviewScreen> {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-            gradient:
-            LinearGradient(begin: Alignment.topCenter, colors: [
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            colors: [
               Colors.lightBlue[800],
               Colors.lightBlue[700],
               Colors.lightBlue[300],
-            ])),
+            ],
+          ),
+        ),
         padding: EdgeInsets.only(top: 50),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,16 +82,16 @@ class _PdfPreviewScreenState extends State<PdfPreviewScreen> {
                 ],
               ),
             ),
-            _loading
+            caricamento
                 ? Center(
                     child: CircularProgressIndicator(),
                   )
                 : Expanded(
-                  child: PDFViewer(
-                      document: _doc,
+                    child: PDFViewer(
+                      document: documento,
                       showPicker: false,
                     ),
-                ),
+                  ),
           ],
         ),
       ),

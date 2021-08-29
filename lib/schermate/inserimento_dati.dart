@@ -4,50 +4,63 @@ import 'package:flutter/material.dart';
 import 'package:progettotirocinio/schermate/scelta_portale.dart';
 
 // Schermata di inserimento dati
-class FormScreen extends StatefulWidget {
-
+class InserimentoDati extends StatefulWidget {
   // *** Dichiarazione variabili ***
-  String status;
+  String azioni;
   String cronologia;
 
-  FormScreen(this.status, this.cronologia);
+  InserimentoDati(this.azioni, this.cronologia);
 
   // Definizione schermata di inserimento dati
   @override
   State<StatefulWidget> createState() {
-    return FormScreenState(status, cronologia);
+    return InserimentoDatiState(azioni, cronologia);
   }
 }
 
 // Implementazione schermata di acquisizione dati
-class FormScreenState extends State<FormScreen> {
-
+class InserimentoDatiState extends State<InserimentoDati> {
   // *** Dichiarazione variabili ***
-  String status;
+  String azioni;
   String cronologia;
-  String focusStat = '';
-  String _name;
-  String _email;
-  String _phonenumber;
+  String aggiornaAzioni = '';
+  String nome;
+  String email;
+  String numeroTelefono;
+
+  DateTime dataSvolgimento = new DateTime.now();
+
+  String giorno;
+  String mese;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  FormScreenState(this.status, this.cronologia);
-
+  InserimentoDatiState(this.azioni, this.cronologia);
 
   // Widget di acquisizione del nome
-  Widget _buildName() {
+  Widget _buildNome() {
+
+    // Controllo su formato data
+    (dataSvolgimento.month < 10)
+        ? mese = '0' + '${dataSvolgimento.month}'
+        : mese = '${dataSvolgimento.month}';
+
+    (dataSvolgimento.day < 10)
+        ? giorno = '0' + '${dataSvolgimento.day}'
+        : giorno = '${dataSvolgimento.day}';
+
+
     return TextFormField(
       decoration: InputDecoration(labelText: 'Nome e cognome'),
-      validator: (String value) {
-        if (value.isEmpty) {
+      validator: (String valore) {
+        if (valore.isEmpty) {
           return 'Il nome è richiesto';
         }
 
         return null;
       },
-      onSaved: (String value) {
-        _name = value;
+      onSaved: (String valore) {
+        nome = valore;
       },
     );
   }
@@ -56,41 +69,40 @@ class FormScreenState extends State<FormScreen> {
   Widget _buildEmail() {
     return TextFormField(
       decoration: InputDecoration(labelText: 'E-mail'),
-      validator: (String value) {
-        if (value.isEmpty) {
+      validator: (String valore) {
+        if (valore.isEmpty) {
           return 'La mail è richiesta';
         }
 
         // Validazione indirizzo inserito
         if (!RegExp(
                 r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
-            .hasMatch(value)) {
+            .hasMatch(valore)) {
           return 'Perfavore, inserire un indirizzo email valido';
         }
 
         return null;
       },
-      onSaved: (String value) {
-        _email = value;
+      onSaved: (String valore) {
+        email = valore;
       },
     );
   }
 
-
   // Widget di acquisizione del numero di telefono
-  Widget _buildPhoneNumber() {
+  Widget _buildNumeroTelefono() {
     return TextFormField(
       decoration: InputDecoration(labelText: 'Numero di telefono'),
       keyboardType: TextInputType.phone,
-      validator: (String value) {
-        if (value.isEmpty) {
+      validator: (String valore) {
+        if (valore.isEmpty) {
           return 'Il numero di telefono è richiesto';
         }
 
         return null;
       },
-      onSaved: (String value) {
-        _phonenumber = value;
+      onSaved: (String valore) {
+        numeroTelefono = valore;
       },
     );
   }
@@ -98,7 +110,6 @@ class FormScreenState extends State<FormScreen> {
   // Widget di costruzione della schermata di acquisizione dati
   @override
   Widget build(BuildContext context) {
-
     // Impedisco di tornare alla schermata precedente
     return WillPopScope(
       onWillPop: () async => false,
@@ -110,12 +121,14 @@ class FormScreenState extends State<FormScreen> {
             padding: EdgeInsets.symmetric(vertical: 0),
             width: double.infinity,
             decoration: BoxDecoration(
-                gradient: LinearGradient(begin: Alignment.topCenter, colors: [
-              Colors.lightBlue[800],
-              Colors.lightBlue[700],
-              Colors.lightBlue[300],
-            ],
-                ),
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                colors: [
+                  Colors.lightBlue[800],
+                  Colors.lightBlue[700],
+                  Colors.lightBlue[300],
+                ],
+              ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -139,10 +152,11 @@ class FormScreenState extends State<FormScreen> {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(60),
-                          topRight: Radius.circular(60),
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20)),
+                        topLeft: Radius.circular(60),
+                        topRight: Radius.circular(60),
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20),
+                      ),
                     ),
                     child: Padding(
                       padding: EdgeInsets.all(30),
@@ -151,31 +165,35 @@ class FormScreenState extends State<FormScreen> {
                           SizedBox(height: 60),
                           Container(
                             decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.lightBlue[100],
-                                    blurRadius: 20,
-                                    offset: Offset(0, 10),
-                                  )
-                                ]),
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.lightBlue[100],
+                                  blurRadius: 20,
+                                  offset: Offset(0, 10),
+                                )
+                              ],
+                            ),
                             child: Column(
                               children: <Widget>[
                                 Container(
                                   padding: EdgeInsets.all(10),
                                   decoration: BoxDecoration(
-                                      border: Border(
-                                          bottom: BorderSide(
-                                              color: Colors.grey[200]))),
+                                    border: Border(
+                                      bottom:
+                                          BorderSide(color: Colors.grey[200]),
+                                    ),
+                                  ),
                                   child: Form(
                                     key: _formKey,
-                                    child: Column(children: <Widget>[
-                                      // Acquisizione dei dati
-                                      _buildName(),
-                                      _buildEmail(),
-                                      _buildPhoneNumber(),
-                                    ],
+                                    child: Column(
+                                      children: <Widget>[
+                                        // Acquisizione dei dati
+                                        _buildNome(),
+                                        _buildEmail(),
+                                        _buildNumeroTelefono(),
+                                      ],
                                     ),
                                   ),
                                 ),
@@ -191,16 +209,17 @@ class FormScreenState extends State<FormScreen> {
 
                               _formKey.currentState.save();
 
-                              focusStat =
-                                  'DATI:\nNome: $_name\nEmail: $_email\nTelefono: $_phonenumber\n\n  ';
-                              status += focusStat;
+                              aggiornaAzioni =
+                                  'DATA SVOLGIMENTO: ${giorno}/${mese}/${dataSvolgimento.year}\n\n  '
+                                      'DATI:\n  Nome: $nome\nEmail: $email\nTelefono: $numeroTelefono\n\n  ';
+                              azioni += aggiornaAzioni;
 
                               // Accesso alla schermata di scelta del portale ed invio dati
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => HomePage(
-                                      status + 'INVIO DATI\n\n  ', cronologia),
+                                      azioni + 'INVIO DATI\n\n  ', cronologia),
                                 ),
                               );
                             },

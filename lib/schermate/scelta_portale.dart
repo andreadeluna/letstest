@@ -7,30 +7,27 @@ import 'package:flutter/services.dart';
 
 // Schermata di homepage (scelta del portale)
 class HomePage extends StatelessWidget {
-
   // *** Dichiarazione variabili ***
-  String status;
+  String azioni;
   String cronologia;
-  String focusStat = '';
+  String aggiornaAzioni = '';
 
   // Link relativi ai portali disponibili
-  final _linktolc =
+  final linkTolc =
       'https://www.cisiaonline.it/area-tematica-tolc-cisia/home-tolc-generale/';
-  final _linkinvalsi = 'https://www.proveinvalsi.net/';
-  final _linkblended = 'https://blended.uniurb.it/moodle/';
+  final linkInvalsi = 'https://www.proveinvalsi.net/';
+  final linkBlended = 'https://blended.uniurb.it/moodle/';
 
   // Parole che devono essere contenute all'interno dei link pena impossibilità di navigazione
-  final dominiotolc = 'cisiaonline';
-  final dominioinvalsi = 'invalsi';
-  final dominioblended = 'uniurb';
+  final dominioTolc = '.cisiaonline';
+  final dominioInvalsi = 'invalsi';
+  final dominioBlended = '.uniurb';
 
-  HomePage(this.status, this.cronologia);
-
+  HomePage(this.azioni, this.cronologia);
 
   // Widget di costruzione della schermata di homepage (scelta del portale)
   @override
   Widget build(BuildContext context) {
-
     // Visualizzazione toast di accesso alla homepage
     Fluttertoast.showToast(
         msg: "Accesso alla Homepage",
@@ -41,8 +38,8 @@ class HomePage extends StatelessWidget {
         textColor: Colors.white,
         fontSize: 16.0);
 
-    focusStat = 'ACCESSO ALLA HOMEPAGE\n\n  ';
-    status += focusStat;
+    aggiornaAzioni = 'ACCESSO ALLA HOMEPAGE\n\n  ';
+    azioni += aggiornaAzioni;
 
     // Nascondo la barra di stato del dispositivo e i tasti a sfioramento
     SystemChrome.setEnabledSystemUIOverlays([]);
@@ -54,19 +51,20 @@ class HomePage extends StatelessWidget {
         home: Center(
           child: Scaffold(
             // Pulsante per aprire la bottom sheet relativa al Form Google
-            floatingActionButton: FloatingButton(status, cronologia),
+            floatingActionButton: FloatingButton(azioni, cronologia),
             body: SafeArea(
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 30),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    gradient:
-                        LinearGradient(begin: Alignment.topCenter, colors: [
-                  Colors.lightBlue[800],
-                  Colors.lightBlue[700],
-                  Colors.lightBlue[300],
-                ],
-                        ),
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    colors: [
+                      Colors.lightBlue[800],
+                      Colors.lightBlue[700],
+                      Colors.lightBlue[300],
+                    ],
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,27 +90,29 @@ class HomePage extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             border: Border.all(
-                                color: Colors.blue[900],
-                                style: BorderStyle.solid,
-                                width: 2),
+                              color: Colors.blue[900],
+                              style: BorderStyle.solid,
+                              width: 2,
+                            ),
                             borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(30),
-                                topRight: Radius.circular(30),
-                                bottomLeft: Radius.circular(30),
-                                bottomRight: Radius.circular(30),
+                              topLeft: Radius.circular(30),
+                              topRight: Radius.circular(30),
+                              bottomLeft: Radius.circular(30),
+                              bottomRight: Radius.circular(30),
                             ),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: GestureDetector(
                               onTap: () {
-                                focusStat = 'SELEZIONATO PORTALE TOLC\n\n  ';
-                                status += focusStat;
+                                aggiornaAzioni =
+                                    'SELEZIONATO PORTALE TOLC\n\n  ';
+                                azioni += aggiornaAzioni;
 
                                 // Impedisco la sospensione dello schermo
                                 Wakelock.enable();
-                                _handleURLButtonPress(
-                                    context, _linktolc, dominiotolc);
+                                _accediAlPortale(
+                                    context, linkTolc, dominioTolc);
                               },
                               child: Image.asset('images/tolc.png'),
                             ),
@@ -127,28 +127,29 @@ class HomePage extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             border: Border.all(
-                                color: Colors.blue[900],
-                                style: BorderStyle.solid,
-                                width: 2,
+                              color: Colors.blue[900],
+                              style: BorderStyle.solid,
+                              width: 2,
                             ),
                             borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(30),
-                                topRight: Radius.circular(30),
-                                bottomLeft: Radius.circular(30),
-                                bottomRight: Radius.circular(30),
+                              topLeft: Radius.circular(30),
+                              topRight: Radius.circular(30),
+                              bottomLeft: Radius.circular(30),
+                              bottomRight: Radius.circular(30),
                             ),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: GestureDetector(
                               onTap: () {
-                                focusStat = 'SELEZIONATO PORTALE INVALSI\n\n  ';
-                                status += focusStat;
+                                aggiornaAzioni =
+                                    'SELEZIONATO PORTALE INVALSI\n\n  ';
+                                azioni += aggiornaAzioni;
 
                                 // Impedisco la sospensione dello schermo
                                 Wakelock.enable();
-                                _handleURLButtonPress(
-                                    context, _linkinvalsi, dominioinvalsi);
+                                _accediAlPortale(
+                                    context, linkInvalsi, dominioInvalsi);
                               },
                               child: Image.asset('images/invalsi.png'),
                             ),
@@ -167,22 +168,24 @@ class HomePage extends StatelessWidget {
                                 style: BorderStyle.solid,
                                 width: 2),
                             borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(30),
-                                topRight: Radius.circular(30),
-                                bottomLeft: Radius.circular(30),
-                                bottomRight: Radius.circular(30)),
+                              topLeft: Radius.circular(30),
+                              topRight: Radius.circular(30),
+                              bottomLeft: Radius.circular(30),
+                              bottomRight: Radius.circular(30),
+                            ),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: GestureDetector(
                               onTap: () {
-                                focusStat = 'SELEZIONATO PORTALE BLENDED\n\n  ';
-                                status += focusStat;
+                                aggiornaAzioni =
+                                    'SELEZIONATO PORTALE BLENDED\n\n  ';
+                                azioni += aggiornaAzioni;
 
                                 // Impedisco la sospensione dello schermo
                                 Wakelock.enable();
-                                _handleURLButtonPress(
-                                    context, _linkblended, dominioblended);
+                                _accediAlPortale(
+                                    context, linkBlended, dominioBlended);
                               },
                               child: Image.asset('images/uniurb.png'),
                             ),
@@ -202,71 +205,66 @@ class HomePage extends StatelessWidget {
   }
 
   // Gestione tap sul pulsante relativo al portale scelto
-  void _handleURLButtonPress(BuildContext context, String url, String dominio) {
-    focusStat = 'ACCESSO AL PORTALE\n\n  ';
-    status += focusStat;
+  void _accediAlPortale(BuildContext context, String url, String dominio) {
+    aggiornaAzioni = 'ACCESSO AL PORTALE\n\n  ';
+    azioni += aggiornaAzioni;
 
     // Accesso alla pagina del portale
     Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) =>
-                WebViewContainer(url, status, dominio, cronologia)));
+                WebViewContainer(url, azioni, dominio, cronologia)));
   }
 }
 
-
 // Pulsante per inserimento link a Google Form e bottom sheet
 class FloatingButton extends StatefulWidget {
-
   // *** Dichiarazione variabili ***
-  String status;
+  String azioni;
   String cronologia;
 
-  FloatingButton(this.status, this.cronologia);
+  FloatingButton(this.azioni, this.cronologia);
 
   // Definizione del pulsante
   @override
   _FloatingButtonState createState() =>
-      _FloatingButtonState(status, cronologia);
+      _FloatingButtonState(azioni, cronologia);
 }
-
 
 // Implementazione del pulsante e della bottom sheet
 class _FloatingButtonState extends State<FloatingButton> {
-
   // *** Dichiarazione variabili ***
-  String status;
+  String azioni;
   String cronologia;
-  String focusStat = '';
+  String aggiornaAzioni = '';
 
   // Variabile per visualizzare o nascondere il pulsante
-  bool _show = true;
+  bool mostraPulsante = true;
 
   // Link relativo al Form Google
-  String _linkForm;
+  String linkForm;
 
   // Parola che deve essere contenuta all'interno dei link pena impossibilità di navigazione
   String dominioForm = "docs.google.com/forms";
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  _FloatingButtonState(this.status, this.cronologia);
-
+  _FloatingButtonState(this.azioni, this.cronologia);
 
   // Widget di acquisizione del link al Form Google
   Widget _buildLink() {
     return TextFormField(
       decoration: InputDecoration(labelText: 'Link Form'),
-      validator: (String value) {
-        if (value.isEmpty) {
+      validator: (String valore) {
+        if (valore.isEmpty) {
           return 'Il link è richiesto';
         }
 
         return null;
       },
-      onSaved: (String value) {
-        _linkForm = value;
+      onSaved: (String valore) {
+        linkForm = valore;
       },
     );
   }
@@ -275,14 +273,15 @@ class _FloatingButtonState extends State<FloatingButton> {
   @override
   Widget build(BuildContext context) {
     // Visualizzazione pulsante
-    return _show
+    return mostraPulsante
         ? FloatingActionButton.extended(
             label: Text(
               "Google Form",
               style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold),
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             icon: Icon(Icons.assignment, color: Colors.black),
             backgroundColor: Colors.grey,
@@ -296,8 +295,9 @@ class _FloatingButtonState extends State<FloatingButton> {
                   decoration: BoxDecoration(
                     color: Colors.grey[200],
                     borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(15),
-                        topRight: Radius.circular(15)),
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15),
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -377,10 +377,12 @@ class _FloatingButtonState extends State<FloatingButton> {
                                                     color: Colors.grey[200]))),
                                         child: Form(
                                           key: _formKey,
-                                          child: Column(children: <Widget>[
-                                            // Acquisizione del link
-                                            _buildLink(),
-                                          ]),
+                                          child: Column(
+                                            children: <Widget>[
+                                              // Acquisizione del link
+                                              _buildLink(),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -395,55 +397,53 @@ class _FloatingButtonState extends State<FloatingButton> {
 
                                     _formKey.currentState.save();
 
-                                    print('LINK FORM: ' + _linkForm);
+                                    print('LINK FORM: ' + linkForm);
 
-                                    if((_linkForm.contains(dominioForm))){
-
-                                      focusStat = 'SELEZIONATO GOOGLE FORM\n\n  ';
-                                      status += focusStat;
+                                    if ((linkForm.contains(dominioForm))) {
+                                      aggiornaAzioni =
+                                          'SELEZIONATO GOOGLE FORM\n\n  ';
+                                      azioni += aggiornaAzioni;
 
                                       // Impedisco la sospensione dello schermo
                                       Wakelock.enable();
 
                                       // Accedo alla schermata del portale
-                                      HomePage(status, cronologia)
-                                          ._handleURLButtonPress(
-                                          context, _linkForm, dominioForm);
-
-                                    }
-                                    else{
-
+                                      HomePage(azioni, cronologia)
+                                          ._accediAlPortale(
+                                              context, linkForm, dominioForm);
+                                    } else {
                                       // Se il link non riguarda un Form Google segnalo l'errore
                                       Fluttertoast.showToast(
-                                          msg: "Link errato: Inserire Form Google",
+                                          msg:
+                                              "Link errato: Inserire Form Google",
                                           toastLength: Toast.LENGTH_LONG,
                                           gravity: ToastGravity.BOTTOM,
                                           timeInSecForIosWeb: 1,
                                           backgroundColor: Colors.blueGrey,
                                           textColor: Colors.white,
                                           fontSize: 16.0);
-
                                     }
-
-
                                   },
                                   child: Container(
                                     height: 50,
                                     margin: EdgeInsets.only(
-                                        top: 20,
-                                        bottom: 20,
-                                        left: 50,
-                                        right: 50),
+                                      top: 20,
+                                      bottom: 20,
+                                      left: 50,
+                                      right: 50,
+                                    ),
                                     decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(50),
-                                        color: Colors.lightBlue[900]),
+                                      borderRadius: BorderRadius.circular(50),
+                                      color: Colors.lightBlue[900],
+                                    ),
                                     child: Center(
                                       child: Text(
                                         "Invia",
                                         style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold),
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -457,9 +457,9 @@ class _FloatingButtonState extends State<FloatingButton> {
                   ),
                 ),
               );
-              _showButton(false);
+              _mostraPulsante(false);
               sheetController.closed.then((value) {
-                _showButton(true);
+                _mostraPulsante(true);
                 print("Sheet chiusa");
               });
             },
@@ -468,9 +468,9 @@ class _FloatingButtonState extends State<FloatingButton> {
   }
 
   // Gestione visualizzazione pulsante
-  void _showButton(bool value) {
+  void _mostraPulsante(bool valore) {
     setState(() {
-      _show = value;
+      mostraPulsante = valore;
     });
   }
 }

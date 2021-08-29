@@ -4,7 +4,6 @@ import 'package:progettotirocinio/schermate/inserimento_dati.dart';
 
 // Schermata iniziale: visualizzazione splash screen
 class App extends StatelessWidget {
-
   // *** Dichiarazione variabili ***
   String azioni;
   String cronologia;
@@ -22,7 +21,6 @@ class App extends StatelessWidget {
 
 // Implementazione splash screen
 class SplashScreen extends StatefulWidget {
-
   // *** Dichiarazione variabili ***
   String azioni;
   String cronologia;
@@ -36,7 +34,6 @@ class SplashScreen extends StatefulWidget {
 
 // Implementazione della splash screen
 class _SplashScreenState extends State<SplashScreen> {
-
   // *** Dichiarazione variabili ***
   String azioni;
   String cronologia;
@@ -54,7 +51,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => FormScreen(azioni, cronologia)));
+                builder: (context) => InserimentoDati(azioni, cronologia)));
       },
     );
   }
