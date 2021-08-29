@@ -1,21 +1,21 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:progettotirocinio/screens/form_screen.dart';
+import 'package:progettotirocinio/schermate/inserimento_dati.dart';
 
 // Schermata iniziale: visualizzazione splash screen
 class App extends StatelessWidget {
 
   // *** Dichiarazione variabili ***
-  String status;
+  String azioni;
   String cronologia;
 
-  App(this.status, this.cronologia);
+  App(this.azioni, this.cronologia);
 
   // Definizione schermata iniziale
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: SplashScreen(status, cronologia),
+      home: SplashScreen(azioni, cronologia),
     );
   }
 }
@@ -24,24 +24,24 @@ class App extends StatelessWidget {
 class SplashScreen extends StatefulWidget {
 
   // *** Dichiarazione variabili ***
-  String status;
+  String azioni;
   String cronologia;
 
-  SplashScreen(this.status, this.cronologia);
+  SplashScreen(this.azioni, this.cronologia);
 
-  // Chiamata al costruttore del widget
+  // Definizione della splash screen
   @override
-  _SplashScreenState createState() => _SplashScreenState(status, cronologia);
+  _SplashScreenState createState() => _SplashScreenState(azioni, cronologia);
 }
 
-// Implementazione del costruttore del widget
+// Implementazione della splash screen
 class _SplashScreenState extends State<SplashScreen> {
 
   // *** Dichiarazione variabili ***
-  String status;
+  String azioni;
   String cronologia;
 
-  _SplashScreenState(this.status, this.cronologia);
+  _SplashScreenState(this.azioni, this.cronologia);
 
   // Visualizzazione della splash screen per 3 secondi
   @override
@@ -54,12 +54,12 @@ class _SplashScreenState extends State<SplashScreen> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => FormScreen(status, cronologia)));
+                builder: (context) => FormScreen(azioni, cronologia)));
       },
     );
   }
 
-  // Widget di costruzione della schermata splash screen
+  // Widget di costruzione della schermata di splash screen
   @override
   Widget build(BuildContext context) {
     // Impedisco di tornare alla schermata precedente

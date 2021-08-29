@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:progettotirocinio/screens/home.dart';
+import 'package:progettotirocinio/schermate/scelta_portale.dart';
 
 // Schermata di inserimento dati
 class FormScreen extends StatefulWidget {

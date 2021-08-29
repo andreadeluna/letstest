@@ -5,8 +5,8 @@ import 'package:wakelock/wakelock.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'home.dart';
-import 'pdf_preview_screen.dart';
+import 'scelta_portale.dart';
+import 'anteprima_pdf.dart';
 
 // Schermata di riepilogo contenente il log delle azioni compiute dall'utente
 class Risultato extends StatefulWidget {
