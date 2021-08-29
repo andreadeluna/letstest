@@ -6,36 +6,49 @@ import 'package:focus_detector/focus_detector.dart';
 import 'package:wakelock/wakelock.dart';
 import 'risultato.dart';
 
-
+// Schermata contenente il portale selezionato
 class WebViewContainer extends StatefulWidget {
+
+  // *** Dichiarazione variabili ***
   final url;
   String status;
-  String dominio;
   String cronologia;
+  String dominio;
 
   WebViewContainer(this.url, this.status, this.dominio, this.cronologia);
 
+  // Definizione schermata portale
   @override
   createState() =>
       _WebViewContainerState(this.url, status, dominio, cronologia);
 }
 
-class _WebViewContainerState extends State<WebViewContainer> {
-  final Completer<WebViewController> _controller =
-      Completer<WebViewController>();
 
-  final _resumeDetectorKey = UniqueKey();
-  DateTime onFocus = new DateTime.now(), lostFocus = new DateTime.now();
-  var _url;
-  final _key = UniqueKey();
-  int _currentIndex = 0;
+class _WebViewContainerState extends State<WebViewContainer> {
+
+  // *** Dichiarazione variabili ***
   String status;
   String cronologia;
   String dominio;
+  var _url;
+  String focusStat = '';
+  int esci = 0;
+  int focusAttuale;
+  String sitoAttuale = '';
+
+  final Completer<WebViewController> _controller = Completer<WebViewController>();
+
+  final _resumeDetectorKey = UniqueKey();
+
+  DateTime onFocus = new DateTime.now(), lostFocus = new DateTime.now();
+
+  final _key = UniqueKey();
 
   _WebViewContainerState(this._url, this.status, this.dominio, this.cronologia);
 
+  // Azione da compiere se l'utente indica di voler tornare alla schermata precedente
   Future<bool> _onBackPressed() {
+    // Visualizzazione messaggio di alert
     return showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -65,7 +78,11 @@ class _WebViewContainerState extends State<WebViewContainer> {
                 child: CircleAvatar(
                   backgroundColor: Colors.red,
                   radius: 60,
-                  child: Icon(Icons.warning, color: Colors.white, size: 50,),
+                  child: Icon(
+                    Icons.warning,
+                    color: Colors.white,
+                    size: 50,
+                  ),
                 ),
               )
             ],
@@ -83,7 +100,8 @@ class _WebViewContainerState extends State<WebViewContainer> {
 
                 esci = 1;
                 lostFocus = DateTime.now();
-                print(cronologia);
+
+                //Accesso alla schermata di riepilogo
                 Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -99,19 +117,19 @@ class _WebViewContainerState extends State<WebViewContainer> {
     );
   }
 
-  @override
-  String focusStat = '';
-  int esci = 0;
-  int focusAttuale;
-  String sitoAttuale = '';
 
+  // Widget di costruzione della schermata del portale
+  @override
   Widget build(BuildContext context) {
+    // Controllo se l'utente indica di volere tornare alla schermata precedente
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: MaterialApp(
+        // Controllo se l'utente esce dall'app
         home: FocusDetector(
           key: _resumeDetectorKey,
           child: Scaffold(
+            // Impedisco all'app di ridimensionarsi
             resizeToAvoidBottomInset: false,
             body: Container(
               padding: EdgeInsets.symmetric(vertical: 5),
@@ -121,7 +139,9 @@ class _WebViewContainerState extends State<WebViewContainer> {
                 Colors.lightBlue[800],
                 Colors.lightBlue[700],
                 Colors.lightBlue[300],
-              ])),
+              ],
+                  ),
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -141,6 +161,7 @@ class _WebViewContainerState extends State<WebViewContainer> {
                     child: Column(
                       children: [
                         Expanded(
+                          // Visualizzo il portale
                           child: WebView(
                               key: _key,
                               javascriptMode: JavascriptMode.unrestricted,
@@ -150,11 +171,14 @@ class _WebViewContainerState extends State<WebViewContainer> {
                                 _controller.complete(webViewController);
                               },
                               navigationDelegate: (NavigationRequest request) {
+
+                                // Controllo se l'utente naviga in pagine diverse da quelle del portale
                                 if (!(request.url.contains(dominio))) {
-                                  print('blocking navigation to $request}');
                                   sitoAttuale =
                                       'TENTATIVO DI ACCESSO A\n${request.url}\n\n  ';
                                   cronologia += sitoAttuale;
+
+                                  // Visualizzo un toast di errore
                                   Fluttertoast.showToast(
                                     msg: "Non è possibile uscire dal portale",
                                     toastLength: Toast.LENGTH_LONG,
@@ -166,27 +190,21 @@ class _WebViewContainerState extends State<WebViewContainer> {
                                   );
                                   return NavigationDecision.prevent;
                                 }
-                                print('allowing navigation to $request');
                                 return NavigationDecision.navigate;
                               },
+
+                            // Salvo la cronologia dei siti visitati
                               onPageStarted: (String url) {
-                                print('Page started loading: $url');
-                                //listUrl.add(url);
                                 sitoAttuale = url + '\n\n  ';
                                 cronologia += sitoAttuale;
                               },
-                              onPageFinished: (String url) {
-                                print('Page finished loading: $url');
-                                //listUrl.add(url);
-                                //print(listUrl);
-                                //sitoAttuale = 'SITO ' + url + '\n\n  ';
-                                //cronologia += sitoAttuale;
-                              }),
+                              ),
                         ),
                       ],
                     ),
                   ),
                   SizedBox(height: 5),
+                  // Pulsante di termine prova
                   GestureDetector(
                     child: Container(
                       height: 50,
@@ -214,12 +232,12 @@ class _WebViewContainerState extends State<WebViewContainer> {
                         ),
                       ),
                     ),
+                    // Visualizzazione messaggio di alert
                     onTap: () {
                       showDialog(
                           context: context,
                           builder: (context) =>
                               AlertDialog(
-                                //title: Text('Vuoi tornare alla Home?'),
                                 backgroundColor: Colors.grey[50],
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15),
@@ -264,6 +282,8 @@ class _WebViewContainerState extends State<WebViewContainer> {
                                       esci = 1;
                                       lostFocus = DateTime.now();
                                       print(cronologia);
+
+                                      //Accesso alla schermata di riepilogo
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -283,13 +303,14 @@ class _WebViewContainerState extends State<WebViewContainer> {
               ),
             ),
           ),
+          // Se rilevo che l'utente è entrato nell'app
           onFocusGained: () {
             focusAttuale = 0;
             onFocus = DateTime.now();
-            print('PORTALE:');
-            print('Focus acquisito a $onFocus');
             focusStat = 'PORTALE:\nFocus acquisito a $onFocus\n\n  ';
             status += focusStat;
+
+            // Visualizzo un toast di accesso al portale
             Fluttertoast.showToast(
               msg: "Accesso al Portale",
               toastLength: Toast.LENGTH_LONG,
@@ -300,13 +321,11 @@ class _WebViewContainerState extends State<WebViewContainer> {
               fontSize: 16.0,
             );
           },
+
+          // Se rilevo che l'utente è uscito dall'app
           onFocusLost: () {
             focusAttuale += 1;
             lostFocus = DateTime.now();
-            print('PORTALE:');
-            print('Focus perso a $lostFocus');
-            print('Tempo mantenimento focus:');
-            print(lostFocus.difference(onFocus));
             if (focusAttuale == 1) {
               focusStat =
                   'PORTALE:\nFocus perso a $lostFocus\nTempo mantenimento focus: ${lostFocus.difference(onFocus)}\n\n  ';
@@ -314,7 +333,6 @@ class _WebViewContainerState extends State<WebViewContainer> {
                   ((esci == 0)
                       ? 'RILEVATA USCITA\n\n  '
                       : 'TERMINE PROVA\n\n  ');
-              print(status);
             }
           },
         ),

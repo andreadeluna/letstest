@@ -3,16 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_plugin_pdf_viewer/flutter_plugin_pdf_viewer.dart';
 import 'package:path_provider/path_provider.dart';
 
-
+// Schermata di visualizzazione dell'anteprima del documento PDF
 class PdfPreviewScreen extends StatefulWidget {
+
+  // *** Dichiarazione variabili ***
   final String fullPath;
+
   PdfPreviewScreen(this.fullPath);
 
+  // Definizione schermata di anteprima
   @override
   _PdfPreviewScreenState createState() => _PdfPreviewScreenState(fullPath);
 }
 
+
+// Implementazione della schermata di anteprima
 class _PdfPreviewScreenState extends State<PdfPreviewScreen> {
+
+  // *** Dichiarazione variabili ***
   final String fullPath;
   PDFDocument _doc;
   bool _loading = false;
@@ -40,6 +48,8 @@ class _PdfPreviewScreenState extends State<PdfPreviewScreen> {
     });
   }
 
+
+  // Widget di costruzione della schermata di anteprima del documento
   @override
   Widget build(BuildContext context) {
     return Scaffold(

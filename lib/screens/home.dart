@@ -5,26 +5,33 @@ import 'webview_container.dart';
 import 'package:wakelock/wakelock.dart';
 import 'package:flutter/services.dart';
 
+// Schermata di homepage (scelta del portale)
 class HomePage extends StatelessWidget {
-  HomePage(this.status, this.cronologia);
 
+  // *** Dichiarazione variabili ***
   String status;
   String cronologia;
-  int focusFlag;
-  DateTime onFocus = new DateTime.now(), lostFocus = new DateTime.now();
+  String focusStat = '';
+
+  // Link relativi ai portali disponibili
   final _linktolc =
       'https://www.cisiaonline.it/area-tematica-tolc-cisia/home-tolc-generale/';
   final _linkinvalsi = 'https://www.proveinvalsi.net/';
   final _linkblended = 'https://blended.uniurb.it/moodle/';
-  String _linkForm;
+
+  // Parole che devono essere contenute all'interno dei link pena impossibilità di navigazione
   final dominiotolc = 'cisiaonline';
   final dominioinvalsi = 'invalsi';
   final dominioblended = 'uniurb';
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
+  HomePage(this.status, this.cronologia);
+
+
+  // Widget di costruzione della schermata di homepage (scelta del portale)
   @override
-  String focusStat = '';
   Widget build(BuildContext context) {
+
+    // Visualizzazione toast di accesso alla homepage
     Fluttertoast.showToast(
         msg: "Accesso alla Homepage",
         toastLength: Toast.LENGTH_LONG,
@@ -33,14 +40,20 @@ class HomePage extends StatelessWidget {
         backgroundColor: Colors.blueGrey,
         textColor: Colors.white,
         fontSize: 16.0);
+
     focusStat = 'ACCESSO ALLA HOMEPAGE\n\n  ';
     status += focusStat;
+
+    // Nascondo la barra di stato del dispositivo e i tasti a sfioramento
     SystemChrome.setEnabledSystemUIOverlays([]);
+
+    // Impedisco di tornare alla schermata precedente
     return WillPopScope(
       onWillPop: () async => false,
       child: MaterialApp(
         home: Center(
           child: Scaffold(
+            // Pulsante per aprire la bottom sheet relativa al Form Google
             floatingActionButton: FloatingButton(status, cronologia),
             body: SafeArea(
               child: Container(
@@ -52,7 +65,9 @@ class HomePage extends StatelessWidget {
                   Colors.lightBlue[800],
                   Colors.lightBlue[700],
                   Colors.lightBlue[300],
-                ])),
+                ],
+                        ),
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -84,7 +99,8 @@ class HomePage extends StatelessWidget {
                                 topLeft: Radius.circular(30),
                                 topRight: Radius.circular(30),
                                 bottomLeft: Radius.circular(30),
-                                bottomRight: Radius.circular(30)),
+                                bottomRight: Radius.circular(30),
+                            ),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -92,6 +108,8 @@ class HomePage extends StatelessWidget {
                               onTap: () {
                                 focusStat = 'SELEZIONATO PORTALE TOLC\n\n  ';
                                 status += focusStat;
+
+                                // Impedisco la sospensione dello schermo
                                 Wakelock.enable();
                                 _handleURLButtonPress(
                                     context, _linktolc, dominiotolc);
@@ -111,12 +129,14 @@ class HomePage extends StatelessWidget {
                             border: Border.all(
                                 color: Colors.blue[900],
                                 style: BorderStyle.solid,
-                                width: 2),
+                                width: 2,
+                            ),
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(30),
                                 topRight: Radius.circular(30),
                                 bottomLeft: Radius.circular(30),
-                                bottomRight: Radius.circular(30)),
+                                bottomRight: Radius.circular(30),
+                            ),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -124,6 +144,8 @@ class HomePage extends StatelessWidget {
                               onTap: () {
                                 focusStat = 'SELEZIONATO PORTALE INVALSI\n\n  ';
                                 status += focusStat;
+
+                                // Impedisco la sospensione dello schermo
                                 Wakelock.enable();
                                 _handleURLButtonPress(
                                     context, _linkinvalsi, dominioinvalsi);
@@ -156,6 +178,8 @@ class HomePage extends StatelessWidget {
                               onTap: () {
                                 focusStat = 'SELEZIONATO PORTALE BLENDED\n\n  ';
                                 status += focusStat;
+
+                                // Impedisco la sospensione dello schermo
                                 Wakelock.enable();
                                 _handleURLButtonPress(
                                     context, _linkblended, dominioblended);
@@ -177,10 +201,12 @@ class HomePage extends StatelessWidget {
     );
   }
 
+  // Gestione tap sul pulsante relativo al portale scelto
   void _handleURLButtonPress(BuildContext context, String url, String dominio) {
-    lostFocus = DateTime.now();
     focusStat = 'ACCESSO AL PORTALE\n\n  ';
     status += focusStat;
+
+    // Accesso alla pagina del portale
     Navigator.push(
         context,
         MaterialPageRoute(
@@ -189,30 +215,46 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class FloatingButton extends StatefulWidget {
-  FloatingButton(this.status, this.cronologia);
 
+// Pulsante per inserimento link a Google Form e bottom sheet
+class FloatingButton extends StatefulWidget {
+
+  // *** Dichiarazione variabili ***
   String status;
   String cronologia;
 
+  FloatingButton(this.status, this.cronologia);
+
+  // Definizione del pulsante
   @override
   _FloatingButtonState createState() =>
       _FloatingButtonState(status, cronologia);
 }
 
-class _FloatingButtonState extends State<FloatingButton> {
-  _FloatingButtonState(this.status, this.cronologia);
 
+// Implementazione del pulsante e della bottom sheet
+class _FloatingButtonState extends State<FloatingButton> {
+
+  // *** Dichiarazione variabili ***
   String status;
   String cronologia;
+  String focusStat = '';
+
+  // Variabile per visualizzare o nascondere il pulsante
   bool _show = true;
+
+  // Link relativo al Form Google
   String _linkForm;
-  int focusFlag;
+
+  // Parola che deve essere contenuta all'interno dei link pena impossibilità di navigazione
   String dominioForm = "docs.google.com/forms";
-  DateTime onFocus = new DateTime.now(), lostFocus = new DateTime.now();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  _FloatingButtonState(this.status, this.cronologia);
+
+
+  // Widget di acquisizione del link al Form Google
   Widget _buildLink() {
     return TextFormField(
       decoration: InputDecoration(labelText: 'Link Form'),
@@ -229,9 +271,10 @@ class _FloatingButtonState extends State<FloatingButton> {
     );
   }
 
+  // Widget di costruzione del pulsante e della bottom sheet
   @override
   Widget build(BuildContext context) {
-    String focusStat = '';
+    // Visualizzazione pulsante
     return _show
         ? FloatingActionButton.extended(
             label: Text(
@@ -244,6 +287,7 @@ class _FloatingButtonState extends State<FloatingButton> {
             icon: Icon(Icons.assignment, color: Colors.black),
             backgroundColor: Colors.grey,
             onPressed: () {
+              // Visualizzazione bottom sheet
               var sheetController = showBottomSheet(
                 context: context,
                 builder: (context) => Container(
@@ -334,6 +378,7 @@ class _FloatingButtonState extends State<FloatingButton> {
                                         child: Form(
                                           key: _formKey,
                                           child: Column(children: <Widget>[
+                                            // Acquisizione del link
                                             _buildLink(),
                                           ]),
                                         ),
@@ -356,7 +401,11 @@ class _FloatingButtonState extends State<FloatingButton> {
 
                                       focusStat = 'SELEZIONATO GOOGLE FORM\n\n  ';
                                       status += focusStat;
+
+                                      // Impedisco la sospensione dello schermo
                                       Wakelock.enable();
+
+                                      // Accedo alla schermata del portale
                                       HomePage(status, cronologia)
                                           ._handleURLButtonPress(
                                           context, _linkForm, dominioForm);
@@ -364,6 +413,7 @@ class _FloatingButtonState extends State<FloatingButton> {
                                     }
                                     else{
 
+                                      // Se il link non riguarda un Form Google segnalo l'errore
                                       Fluttertoast.showToast(
                                           msg: "Link errato: Inserire Form Google",
                                           toastLength: Toast.LENGTH_LONG,
@@ -417,6 +467,7 @@ class _FloatingButtonState extends State<FloatingButton> {
         : Container();
   }
 
+  // Gestione visualizzazione pulsante
   void _showButton(bool value) {
     setState(() {
       _show = value;

@@ -3,21 +3,29 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:progettotirocinio/screens/home.dart';
 
+// Schermata di inserimento dati
 class FormScreen extends StatefulWidget {
+
+  // *** Dichiarazione variabili ***
   String status;
   String cronologia;
 
   FormScreen(this.status, this.cronologia);
 
+  // Definizione schermata di inserimento dati
   @override
   State<StatefulWidget> createState() {
     return FormScreenState(status, cronologia);
   }
 }
 
+// Implementazione schermata di acquisizione dati
 class FormScreenState extends State<FormScreen> {
+
+  // *** Dichiarazione variabili ***
   String status;
   String cronologia;
+  String focusStat = '';
   String _name;
   String _email;
   String _phonenumber;
@@ -26,6 +34,8 @@ class FormScreenState extends State<FormScreen> {
 
   FormScreenState(this.status, this.cronologia);
 
+
+  // Widget di acquisizione del nome
   Widget _buildName() {
     return TextFormField(
       decoration: InputDecoration(labelText: 'Nome e cognome'),
@@ -42,14 +52,16 @@ class FormScreenState extends State<FormScreen> {
     );
   }
 
+  // Widget di acquisizione dell'indirizzo e-mail
   Widget _buildEmail() {
     return TextFormField(
-      decoration: InputDecoration(labelText: 'Email'),
+      decoration: InputDecoration(labelText: 'E-mail'),
       validator: (String value) {
         if (value.isEmpty) {
           return 'La mail è richiesta';
         }
 
+        // Validazione indirizzo inserito
         if (!RegExp(
                 r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
             .hasMatch(value)) {
@@ -64,6 +76,8 @@ class FormScreenState extends State<FormScreen> {
     );
   }
 
+
+  // Widget di acquisizione del numero di telefono
   Widget _buildPhoneNumber() {
     return TextFormField(
       decoration: InputDecoration(labelText: 'Numero di telefono'),
@@ -81,14 +95,16 @@ class FormScreenState extends State<FormScreen> {
     );
   }
 
+  // Widget di costruzione della schermata di acquisizione dati
   @override
-  String focusStat = '';
-
   Widget build(BuildContext context) {
+
+    // Impedisco di tornare alla schermata precedente
     return WillPopScope(
       onWillPop: () async => false,
       child: MaterialApp(
         home: Scaffold(
+          // Impedisco all'app di ridimensionarsi
           resizeToAvoidBottomInset: false,
           body: Container(
             padding: EdgeInsets.symmetric(vertical: 0),
@@ -98,7 +114,9 @@ class FormScreenState extends State<FormScreen> {
               Colors.lightBlue[800],
               Colors.lightBlue[700],
               Colors.lightBlue[300],
-            ])),
+            ],
+                ),
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -109,7 +127,7 @@ class FormScreenState extends State<FormScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        "Inserimento nominativo",
+                        "Inserimento dati",
                         style: TextStyle(color: Colors.white, fontSize: 40),
                       )
                     ],
@@ -148,15 +166,17 @@ class FormScreenState extends State<FormScreen> {
                                   padding: EdgeInsets.all(10),
                                   decoration: BoxDecoration(
                                       border: Border(
-                                          bottom:
-                                              BorderSide(color: Colors.grey[200]))),
+                                          bottom: BorderSide(
+                                              color: Colors.grey[200]))),
                                   child: Form(
                                     key: _formKey,
                                     child: Column(children: <Widget>[
+                                      // Acquisizione dei dati
                                       _buildName(),
                                       _buildEmail(),
                                       _buildPhoneNumber(),
-                                    ]),
+                                    ],
+                                    ),
                                   ),
                                 ),
                               ],
@@ -170,13 +190,12 @@ class FormScreenState extends State<FormScreen> {
                               }
 
                               _formKey.currentState.save();
+
                               focusStat =
                                   'DATI:\nNome: $_name\nEmail: $_email\nTelefono: $_phonenumber\n\n  ';
                               status += focusStat;
-                              print(_name);
-                              print(_email);
-                              print(_phonenumber);
-                              print(status);
+
+                              // Accesso alla schermata di scelta del portale ed invio dati
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

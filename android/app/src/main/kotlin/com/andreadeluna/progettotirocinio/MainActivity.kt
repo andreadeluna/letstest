@@ -9,6 +9,11 @@ class MainActivity: FlutterActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Impedisco all'utente di compiere azioni multimediali sull'app
+        // (registrare lo schermo, effettuare screenshot) e oscuro la
+        // schermata quando manda in background l'app
+
         window.addFlags(LayoutParams.FLAG_SECURE)
     }
 

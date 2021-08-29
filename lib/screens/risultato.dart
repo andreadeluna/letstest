@@ -8,26 +8,38 @@ import 'package:pdf/widgets.dart' as pw;
 import 'home.dart';
 import 'pdf_preview_screen.dart';
 
-
+// Schermata di riepilogo contenente il log delle azioni compiute dall'utente
 class Risultato extends StatefulWidget {
+
+  // *** Dichiarazione variabili ***
   String status;
   String cronologia;
 
   Risultato(this.status, this.cronologia);
 
+  // Definizione schermata di riepilogo
   @override
   _RisultatoState createState() => _RisultatoState(status, cronologia);
 }
 
+// Implementazione schermata di riepilogo
 class _RisultatoState extends State<Risultato> {
-  final pdf = pw.Document();
+
+  // *** Dichiarazione variabili ***
   String status;
   String cronologia;
-  String prova = "Prova PDF";
+  String focusStat = '';
+  String cronologiaStat = '';
+
+  final pdf = pw.Document();
+
+  List<Widget> textWidgetList = List<Widget>();
 
   _RisultatoState(this.status, this.cronologia);
 
+  // Azione da compiere se l'utente indica di voler tornare alla schermata precedente
   Future<bool> _onBackPressed() {
+    // Visualizzazione messaggio di alert
     return showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -76,6 +88,8 @@ class _RisultatoState extends State<Risultato> {
                     status += focusStat;
                     cronologiaStat = 'RITORNO ALLA HOMEPAGE\n\n  ';
                     cronologia += cronologiaStat;
+
+                    //Accesso alla schermata iniziale (homepage)
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -88,16 +102,15 @@ class _RisultatoState extends State<Risultato> {
             ));
   }
 
-  List<Widget> textWidgetList = List<Widget>();
 
+
+  // Widget di costruzione della schermata di riepilogo
   @override
-  String focusStat = '';
-  String cronologiaStat = '';
-
   Widget build(BuildContext context) {
     List<String> stato = status.split('  ');
     List<String> cronologiaweb = cronologia.split('  ');
 
+    // Generazione del log di riepilogo
     for (int i = 0; i < stato.length; i++) {
       textWidgetList.add(Container(
         alignment: Alignment.bottomLeft,
@@ -110,10 +123,11 @@ class _RisultatoState extends State<Risultato> {
                   ? Colors.red
                   : Colors.black)),
         ),
-      )
+      ),
       );
     }
 
+    // Controllo se l'utente indica di volere tornare alla schermata precedente
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: MaterialApp(
@@ -126,7 +140,9 @@ class _RisultatoState extends State<Risultato> {
               Colors.lightBlue[800],
               Colors.lightBlue[700],
               Colors.lightBlue[300],
-            ])),
+            ],
+                ),
+            ),
             child: Container(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -169,6 +185,7 @@ class _RisultatoState extends State<Risultato> {
                     ),
                   ),
                   Center(
+                    // Pulsante di visualizzazione anteprima documento
                     child: GestureDetector(
                       child: Container(
                         height: 50,
@@ -201,6 +218,7 @@ class _RisultatoState extends State<Risultato> {
                         ),
                       ),
                       onTap: () async {
+
                         writeOnPdf(stato, cronologiaweb);
                         await savePdf();
 
@@ -212,17 +230,21 @@ class _RisultatoState extends State<Risultato> {
                         String fullPath = "$documentPath/risultatoprova.pdf";
                         print(fullPath);
 
+                        // Accesso alla schermata di visualizzazione PDF
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => PdfPreviewScreen(
                                       fullPath,
-                                    )));
+                                    ),
+                            ),
+                        );
                       },
                     ),
                   ),
                   SizedBox(height: 10),
                   Center(
+                    // Pulsante di condivisione del documento
                     child: GestureDetector(
                       child: Container(
                         height: 50,
@@ -268,7 +290,10 @@ class _RisultatoState extends State<Risultato> {
     );
   }
 
+  // Generazione del documento PDF
   writeOnPdf(List stato, List cronologiaweb) {
+
+    // Sezione azioni compiute dall'utente
     pdf.addPage(pw.MultiPage(
       pageFormat: PdfPageFormat.a4,
       margin: pw.EdgeInsets.all(32),
@@ -282,36 +307,15 @@ class _RisultatoState extends State<Risultato> {
                     pw.Text('Riepilogo azioni', textScaleFactor: 2),
                   ])),
           pw.Header(level: 1, text: 'Dati utente'),
-          //for (int i = 2; i < 7; i++)
           pw.Paragraph(text: stato[1]),
-
           pw.Header(level: 1, text: 'Azioni compiute'),
           for (int i = 3; i < stato.length; i++) pw.Paragraph(text: stato[i]),
-
-          // pw.Header(level: 1, text: 'Dati navigazione'),
-          // for (int i = 0; i < cronologiaweb.length; i++)
-          //   pw.Paragraph(text: cronologiaweb[i]),
-          // Write All the paragraph in one line.
-          // For clear understanding
-          // here there are line breaks.
-          // pw.Paragraph(text: prova),
-          // pw.,
-          // pw.Paragraph(text: "$status"),
-          // pw.Header(level: 1, text: 'Titolo paragrafo (Cronologia)'),
-          // pw.Paragraph(text: "$cronologia"),
-          // pw.Paragraph(text: "Paragrafo 3"),
-          // pw.Padding(padding: const pw.EdgeInsets.all(10)),
-          /*pw.Table.fromTextArray(context: context, data: const <List<String>>[
-            <String>['Colonna 1', 'Colonna 2'],
-            <String>['1', '1'],
-            <String>['2', '2'],
-            <String>['3', '3'],
-            <String>['4', '4'],
-          ]),*/
         ];
       },
-    ));
+    ),
+    );
 
+    // Sezione siti visitati dall'utente
     pdf.addPage(pw.MultiPage(
       pageFormat: PdfPageFormat.a4,
       margin: pw.EdgeInsets.all(32),
@@ -333,6 +337,8 @@ class _RisultatoState extends State<Risultato> {
     ));
   }
 
+
+  // Salvataggio documento
   Future savePdf() async {
     Directory documentDirectory = await getApplicationDocumentsDirectory();
     String documentPath = documentDirectory.path;
@@ -340,6 +346,8 @@ class _RisultatoState extends State<Risultato> {
     file.writeAsBytesSync(pdf.save());
   }
 
+
+  // Condivisione documento
   void _shareContent() async {
     Directory documentDirectory = await getApplicationDocumentsDirectory();
     String documentPath = documentDirectory.path;

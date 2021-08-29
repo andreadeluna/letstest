@@ -2,60 +2,67 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:progettotirocinio/screens/form_screen.dart';
 
-
+// Schermata iniziale: visualizzazione splash screen
 class App extends StatelessWidget {
-  App(this.status, this.cronologia);
 
+  // *** Dichiarazione variabili ***
   String status;
   String cronologia;
-  DateTime onFocus = new DateTime.now(), lostFocus = new DateTime.now();
 
+  App(this.status, this.cronologia);
+
+  // Definizione schermata iniziale
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Progetto Tirocinio',
-      theme: ThemeData(
-        primarySwatch: Colors.lightBlue,
-        fontFamily: "Arial",
-        textTheme: TextTheme(
-          button: TextStyle(color: Colors.white, fontSize: 18.0),
-          headline6: TextStyle(color: Colors.red),
-        ),
-      ),
       home: SplashScreen(status, cronologia),
     );
   }
 }
 
+// Implementazione splash screen
 class SplashScreen extends StatefulWidget {
+
+  // *** Dichiarazione variabili ***
   String status;
   String cronologia;
 
   SplashScreen(this.status, this.cronologia);
 
+  // Chiamata al costruttore del widget
   @override
   _SplashScreenState createState() => _SplashScreenState(status, cronologia);
 }
 
+// Implementazione del costruttore del widget
 class _SplashScreenState extends State<SplashScreen> {
+
+  // *** Dichiarazione variabili ***
   String status;
   String cronologia;
 
   _SplashScreenState(this.status, this.cronologia);
 
+  // Visualizzazione della splash screen per 3 secondi
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 3), () {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => FormScreen(status, cronologia)));
-    });
+    Timer(
+      Duration(seconds: 3),
+      () {
+        // Apertura schermata di inserimento dati
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => FormScreen(status, cronologia)));
+      },
+    );
   }
 
+  // Widget di costruzione della schermata splash screen
   @override
   Widget build(BuildContext context) {
+    // Impedisco di tornare alla schermata precedente
     return WillPopScope(
       onWillPop: () async => false,
       child: MaterialApp(
@@ -69,7 +76,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 SizedBox(height: 40),
                 CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                )
+                ),
               ],
             ),
           ),
