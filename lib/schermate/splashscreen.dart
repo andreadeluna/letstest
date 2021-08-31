@@ -71,6 +71,14 @@ class _SplashScreenState extends State<SplashScreen> {
               children: [
                 Image.asset('images/splash.png', height: 150),
                 SizedBox(height: 40),
+                Text("Let's Test!",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                    ),
+                ),
+                SizedBox(height: 40),
                 CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                 ),

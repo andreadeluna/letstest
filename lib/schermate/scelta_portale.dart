@@ -289,6 +289,10 @@ class _FloatingButtonState extends State<FloatingButton> {
               // Visualizzazione bottom sheet
               var sheetController = showBottomSheet(
                 context: context,
+                backgroundColor: Colors.grey[200],
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
                 builder: (context) => Container(
                   margin: EdgeInsets.only(left: 5, right: 5),
                   height: 360,
@@ -460,7 +464,6 @@ class _FloatingButtonState extends State<FloatingButton> {
               _mostraPulsante(false);
               sheetController.closed.then((value) {
                 _mostraPulsante(true);
-                print("Sheet chiusa");
               });
             },
           )
