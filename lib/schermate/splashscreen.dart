@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:progettotirocinio/schermate/inserimento_dati.dart';
+import 'inserimento_dati.dart';
 
 // Schermata iniziale: visualizzazione splash screen
 class App extends StatelessWidget {
@@ -71,12 +71,13 @@ class _SplashScreenState extends State<SplashScreen> {
               children: [
                 Image.asset('images/splash.png', height: 150),
                 SizedBox(height: 40),
-                Text("Let's Test!",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
-                    ),
+                Text(
+                  "Let's Test!",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 SizedBox(height: 40),
                 CircularProgressIndicator(

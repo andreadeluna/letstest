@@ -1,4 +1,4 @@
-package com.andreadeluna.testpreliminari
+package com.andreadeluna.letstest
 
 import android.os.Bundle
 import android.view.Window

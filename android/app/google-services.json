@@ -1,15 +1,15 @@
 {
   "project_info": {
     "project_number": "554880938098",
-    "project_id": "progettotirocinio-67091",
-    "storage_bucket": "progettotirocinio-67091.appspot.com"
+    "project_id": "letstest-67091",
+    "storage_bucket": "letstest-67091.appspot.com"
   },
   "client": [
     {
       "client_info": {
         "mobilesdk_app_id": "1:554880938098:android:83cfe730ca20c01d33d2eb",
         "android_client_info": {
-          "package_name": "com.andreadeluna.progettotirocinio"
+          "package_name": "com.andreadeluna.letstest"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "554880938098-84q8c8m5mmk54le1siv59n2ennfnei51.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.andreadeluna.progettotirocinio",
+            "package_name": "com.andreadeluna.letstest",
             "certificate_hash": "131088c17870c808be22677875883e7899ccb907"
           }
         },

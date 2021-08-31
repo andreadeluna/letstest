@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:progettotirocinio/schermate/scelta_portale.dart';
+import 'scelta_portale.dart';
 
 // Schermata di inserimento dati
 class InserimentoDati extends StatefulWidget {
@@ -39,7 +39,6 @@ class InserimentoDatiState extends State<InserimentoDati> {
 
   // Widget di acquisizione del nome
   Widget _buildNome() {
-
     // Controllo su formato data
     (dataSvolgimento.month < 10)
         ? mese = '0' + '${dataSvolgimento.month}'
@@ -48,7 +47,6 @@ class InserimentoDatiState extends State<InserimentoDati> {
     (dataSvolgimento.day < 10)
         ? giorno = '0' + '${dataSvolgimento.day}'
         : giorno = '${dataSvolgimento.day}';
-
 
     return TextFormField(
       decoration: InputDecoration(labelText: 'Nome e cognome'),
@@ -211,7 +209,7 @@ class InserimentoDatiState extends State<InserimentoDati> {
 
                               aggiornaAzioni =
                                   'DATA SVOLGIMENTO: ${giorno}/${mese}/${dataSvolgimento.year}\n\n  '
-                                      'DATI:\n  Nome: $nome\nEmail: $email\nTelefono: $numeroTelefono\n\n  ';
+                                  'DATI:\n  Nome: $nome\nEmail: $email\nTelefono: $numeroTelefono\n\n  ';
                               azioni += aggiornaAzioni;
 
                               // Accesso alla schermata di scelta del portale ed invio dati
