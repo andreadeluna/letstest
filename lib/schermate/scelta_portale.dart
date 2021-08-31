@@ -213,8 +213,7 @@ class HomePage extends StatelessWidget {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) =>
-                WebViewContainer(url, azioni, dominio, cronologia)));
+            builder: (context) => Portale(url, azioni, dominio, cronologia)));
   }
 }
 

@@ -7,22 +7,21 @@ import 'package:wakelock/wakelock.dart';
 import 'riepilogo.dart';
 
 // Schermata contenente il portale selezionato
-class WebViewContainer extends StatefulWidget {
+class Portale extends StatefulWidget {
   // *** Dichiarazione variabili ***
   String azioni;
   String cronologia;
   String dominio;
   final url;
 
-  WebViewContainer(this.url, this.azioni, this.dominio, this.cronologia);
+  Portale(this.url, this.azioni, this.dominio, this.cronologia);
 
   // Definizione schermata portale
   @override
-  createState() =>
-      _WebViewContainerState(this.url, azioni, dominio, cronologia);
+  createState() => _PortaleState(this.url, azioni, dominio, cronologia);
 }
 
-class _WebViewContainerState extends State<WebViewContainer> {
+class _PortaleState extends State<Portale> {
   // *** Dichiarazione variabili ***
   String azioni;
   String cronologia;
@@ -46,7 +45,7 @@ class _WebViewContainerState extends State<WebViewContainer> {
 
   final _key = UniqueKey();
 
-  _WebViewContainerState(this.url, this.azioni, this.dominio, this.cronologia);
+  _PortaleState(this.url, this.azioni, this.dominio, this.cronologia);
 
   // Azione da compiere se l'utente indica di voler tornare alla schermata precedente
   Future<bool> _gestisciBack() {
@@ -310,11 +309,13 @@ class _WebViewContainerState extends State<WebViewContainer> {
                                           : ore = '${focusPerso.hour}';
 
                                       (focusPerso.minute < 10)
-                                          ? minuti = '0' + '${focusPerso.minute}'
+                                          ? minuti =
+                                              '0' + '${focusPerso.minute}'
                                           : minuti = '${focusPerso.minute}';
 
                                       (focusPerso.second < 10)
-                                          ? secondi = '0' + '${focusPerso.second}'
+                                          ? secondi =
+                                              '0' + '${focusPerso.second}'
                                           : secondi = '${focusPerso.second}';
 
                                       //Accesso alla schermata di riepilogo
