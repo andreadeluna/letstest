@@ -154,8 +154,8 @@ class InserimentoDatiState extends State<InserimentoDati> {
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(60),
                         topRight: Radius.circular(60),
-                        bottomLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20),
+                        bottomLeft: Radius.circular(0),
+                        bottomRight: Radius.circular(0),
                       ),
                     ),
                     child: Padding(
