@@ -48,7 +48,7 @@ class _PortaleState extends State<Portale> {
   _PortaleState(this.url, this.azioni, this.dominio, this.cronologia);
 
   // Azione da compiere se l'utente indica di voler tornare alla schermata precedente
-  Future<bool> _gestisciBack() {
+  Future<bool> _gestisciBackPortale() {
     // Visualizzazione messaggio di alert
     return showDialog(
         context: context,
@@ -128,7 +128,7 @@ class _PortaleState extends State<Portale> {
   Widget build(BuildContext context) {
     // Controllo se l'utente indica di volere tornare alla schermata precedente
     return WillPopScope(
-      onWillPop: _gestisciBack,
+      onWillPop: _gestisciBackPortale,
       child: MaterialApp(
         // Controllo se l'utente esce dall'app
         home: FocusDetector(

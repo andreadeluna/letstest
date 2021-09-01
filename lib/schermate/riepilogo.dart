@@ -36,7 +36,7 @@ class _RisultatoState extends State<Risultato> {
   _RisultatoState(this.azioni, this.cronologia);
 
   // Azione da compiere se l'utente indica di voler tornare alla schermata precedente
-  Future<bool> _gestisciBack() {
+  Future<bool> _gestisciBackRiepilogo() {
     // Visualizzazione messaggio di alert
     return showDialog(
         context: context,
@@ -138,7 +138,7 @@ class _RisultatoState extends State<Risultato> {
 
     // Controllo se l'utente indica di volere tornare alla schermata precedente
     return WillPopScope(
-      onWillPop: _gestisciBack,
+      onWillPop: _gestisciBackRiepilogo,
       child: MaterialApp(
         home: Scaffold(
           body: Container(
